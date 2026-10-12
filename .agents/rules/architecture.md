@@ -19,5 +19,7 @@ Source of truth: `docs/architecture.md`. This file lists only the rules agents m
 
 ## Conventions
 
+- Import from a slice only through its public API (`index.ts`), never from its internal files.
+- Inside a slice, group code by segment: `ui`, `model`, `api`, `lib`. Create only the segments the slice needs.
 - Follow the structure and naming of neighboring slices.
 - Do not create new top-level folders in `src/` without team approval.

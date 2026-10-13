@@ -35,7 +35,7 @@ Light FSD: `app` → `pages` → `widgets` → `features` → `shared`. A layer 
 - No comments in the final code. `console.*` is allowed in source: Vite strips it at build (`dropConsole`).
 - No secrets in the repo. The API key comes from env (`VITE_API_KEY`), never hardcoded.
 - Do not add dependencies without team approval.
-- Keep diffs minimal. Do not refactor unrelated code.
+- Keep diffs minimal: change only the files the task requires. Do not refactor, rename, or reformat unrelated code; if you notice something worth fixing, mention it instead of changing it.
 
 ### Approval for changes
 

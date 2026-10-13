@@ -1,32 +1,36 @@
+## Структура проекта
+
+```
 src/
-│
 ├── app/
-│ ├── router.tsx / и /:lang открывают одну страницу, неизвестный путь - 404
-│ └── styles/ глобальные стили
+│   ├── router.tsx          # / и /:lang открывают одну страницу, неизвестный путь — 404
+│   └── styles/             # глобальные стили
 │
 ├── pages/
-│ ├── landing/ собирает виджеты и использует скролл
-│ └── not-found/ страница с 404
+│   ├── landing/            # собирает виджеты и использует скролл
+│   └── not-found/          # страница 404
 │
 ├── widgets/
-│ ├── header/ меню с лого
-│ ├── hero/ первый экран и смена слова
-│ ├── tasks/ MULTI-TASKS
-│ ├── benefits/ MULTI-BENEFITS и бегущая строка
-│ ├── multiply/ MULTIPLY WITH US и Scroll to top
-│ ├── background/ живой фон и затемнение на втором экране
-│ └── preloader/ комбинированный прелоадер
+│   ├── header/             # меню с лого
+│   ├── hero/               # первый экран и смена слова
+│   ├── tasks/              # MULTI-TASKS
+│   ├── benefits/           # MULTI-BENEFITS и бегущая строка
+│   ├── multiply/           # MULTIPLY WITH US
+│   ├── background/         # живой фон и затемнение на втором экране
+│   ├── preloader/          # комбинированный прелоадер
+│   └── footer/             # Scroll to top и соцсети
 │
 ├── features/
-│ ├── snap-scroll/ колесо, якорь, направление, GSAP
-│ ├── contact-form/ модалка, валидация, отправка, окно благодарности
-│ └── locale-switch/ кнопка смены языка, меняет адрес
+│   ├── snap-scroll/        # колесо, якорь, направление, GSAP
+│   ├── contact-form/       # модалка, валидация, отправка, окно благодарности
+│   └── locale-switch/      # кнопка смены языка, меняет адрес
 │
 └── shared/
-├── api/ обёртка над fetch, benefits, tasks, multiply, POST /form
-├── i18n/ словари подписей, которых нет в API
-├── ui/ кнопки
-└── assets/ иконки
+    ├── api/                # обёртка над fetch: benefits, tasks, multiply, POST /form
+    ├── i18n/               # словари подписей, которых нет в API
+    ├── ui/                 # кнопки
+    └── assets/             # иконки
+```
 
 ## Архитектура (лёгкий FSD)
 
@@ -42,7 +46,7 @@ flowchart TD
 
   subgraph pagesLayer ["pages · только собирают экраны"]
     direction LR
-    landing["<b>landing</b><br/>4 экрана, шапка, фон"]
+    landing["<b>landing</b><br/>4 экрана, шапка, фон, футер"]
     notFound["<b>not-found</b><br/>страница 404"]
   end
 
@@ -52,9 +56,10 @@ flowchart TD
     hero["<b>hero</b><br/>смена слова · CSS"]
     tasks["<b>tasks</b><br/>MULTI-TASKS"]
     benefits["<b>benefits</b><br/>бегущая строка · CSS"]
-    multiply["<b>multiply</b><br/>MULTIPLY WITH US<br/>Scroll to top"]
+    multiply["<b>multiply</b><br/>MULTIPLY WITH US"]
     background["<b>background</b><br/>фон и затемнение · CSS"]
     preloader["<b>preloader</b><br/>логотип и процент"]
+    footer["<b>footer</b><br/>Scroll to top<br/>ссылки на соцсети"]
   end
 
   subgraph featuresLayer ["features · то, с чем взаимодействуют"]
@@ -74,13 +79,14 @@ flowchart TD
 
   router --> landing
   router --> notFound
-  landing --> header & hero & tasks & benefits & multiply & background & preloader
+  landing --> header & hero & tasks & benefits & multiply & background & preloader & footer
   landing --> snap
   header --> snap
   header --> locale
   hero --> form
   multiply --> form
-  multiply --> snap
+  footer --> snap
+  footer --> assets
   tasks & benefits & multiply --> api
   form --> api
   form --> i18n
@@ -96,7 +102,7 @@ flowchart TD
 
   class router,styles appNode
   class landing,notFound pageNode
-  class header,hero,tasks,benefits,multiply,background,preloader widgetNode
+  class header,hero,tasks,benefits,multiply,background,preloader,footer widgetNode
   class snap,form,locale featureNode
   class api,i18n,ui,assets sharedNode
 
@@ -107,12 +113,12 @@ flowchart TD
   style sharedLayer fill:#F1FCF3,stroke:#3E9B4B
 ```
 
-| Слой       | Зачем                               | Что лежит                          |
-| ---------- | ----------------------------------- | ---------------------------------- |
-| `app`      | Запустить сайт и выбрать страницу   | Роутер, глобальные стили           |
-| `pages`    | Собрать экраны в одну страницу      | Лендинг, 404                       |
-| `widgets`  | Показать то, что видит пользователь | 4 экрана, шапка, фон, прелоадер    |
-| `features` | Обработать действие пользователя    | Перелистывание, форма, смена языка |
-| `shared`   | Дать общее всем слоям выше          | Запросы, словарь, кнопки, иконки   |
+| Слой       | Зачем                               | Что лежит                              |
+| ---------- | ----------------------------------- | -------------------------------------- |
+| `app`      | Запустить сайт и выбрать страницу   | Роутер, глобальные стили               |
+| `pages`    | Собрать экраны в одну страницу      | Лендинг, 404                           |
+| `widgets`  | Показать то, что видит пользователь | 4 экрана, шапка, фон, прелоадер, футер |
+| `features` | Обработать действие пользователя    | Перелистывание, форма, смена языка     |
+| `shared`   | Дать общее всем слоям выше          | Запросы, словарь, кнопки, иконки       |
 
 Языки не отдельные страницы: тот же лендинг открывается на `/` и `/ru`. Номер экрана в адрес не входит, его держит `snap-scroll` и читает якорь, например `#join`.

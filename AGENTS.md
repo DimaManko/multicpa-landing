@@ -37,6 +37,14 @@ Light FSD: `app` → `pages` → `widgets` → `features` → `shared`. A layer 
 - Do not add dependencies without team approval.
 - Keep diffs minimal. Do not refactor unrelated code.
 
+### Approval for changes
+
+- Do not change project requirements, architecture, approved tech stack, or established conventions without explicit developer approval.
+- If a task appears to require such a change, explain why and ask for approval before proceeding.
+- Do not introduce architectural changes, new layers, dependencies, or alternative implementation approaches that conflict with the existing rules without approval.
+- If requirements are unclear or conflicting, ask the developer for clarification instead of making assumptions.
+- Implement the requested task within the existing requirements and architecture unless approval for a change has been explicitly given.
+
 ## 5. Rules
 
 Detailed rules live in `.agents/rules/`. Read the relevant file before working in its area:

@@ -66,6 +66,13 @@
 | modal width | 560px | `$modal-width` |
 | progress width | 576px | `$progress-width` |
 | progress height | 20px | `$progress-height` |
+| sm | 640px | `$breakpoint-sm` |
+| md | 768px | `$breakpoint-md` |
+| lg | 1024px | `$breakpoint-lg` |
+| xl | 1280px | `$breakpoint-xl` |
+| 2xl | 1536px | `$breakpoint-2xl` |
+
+Брейкпоинты как в Tailwind, mobile-first: правило действует от этой ширины и выше. Контейнер и без них сжимается до окна и не шире 1440px. `xl` — типичные 13 дюймов, `2xl` шире контейнера.
 
 Верхние и нижние отступы у экранов разные, общего токена для них нет.
 
@@ -258,6 +265,12 @@ $field-height: 36px;
 $modal-width: 560px;
 $progress-width: 576px;
 $progress-height: 20px;
+
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
 ```
 
 ```scss

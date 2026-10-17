@@ -1,0 +1,52 @@
+// Цвета
+
+$color-dark: #14091a;
+$color-purple: #9e13e0;
+$color-yellow: #fee97d;
+$color-white: #ffffff;
+$color-ink: #0c090e;
+
+// Шрифты
+
+$font-family-base: "Halvar Breitschrift", sans-serif;
+$font-family-second: "Stolzl", sans-serif;
+$font-weight-bold: 700;
+$font-weight-medium: 500;
+$font-weight-regular: 400;
+$font-weight-light: 300;
+
+$font-size-button: 23px;
+$font-tracking-button: 0.2em;
+
+$font-size-menu: 20px;
+
+$font-size-body: 20px;
+
+$font-size-section: 40px;
+$font-line-section: 0.9;
+$font-tracking-section: -0.04em;
+
+$font-line-base: 1.2;
+$font-line-single: 1;
+
+// Сетка
+
+$screen-width: 1440px;
+$screen-height: 100%;
+$layout-padding-x: 50px;
+$social-size: 40px;
+$button-height: 82px;
+$button-height-choice: 90px;
+$button-height-form: 35px;
+$field-height: 36px;
+$modal-width: 560px;
+$progress-width: 576px;
+$progress-height: 20px;
+
+// Брейкпоинты, desktop-first: стили макета без запроса, уже этой ширины — через max-width
+
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;

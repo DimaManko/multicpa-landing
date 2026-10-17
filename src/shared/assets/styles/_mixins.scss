@@ -1,0 +1,68 @@
+@use "./variables" as *;
+
+@mixin font-body {
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-body;
+  line-height: $font-line-base;
+}
+
+@mixin font-menu {
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-menu;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-transform: uppercase;
+  color: $color-yellow;
+}
+
+@mixin font-button {
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-button;
+  line-height: $font-line-single;
+  letter-spacing: $font-tracking-button;
+}
+
+@mixin font-section {
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-section;
+  line-height: $font-line-section;
+  letter-spacing: $font-tracking-section;
+  text-align: right;
+  text-transform: uppercase;
+  color: $color-yellow;
+}
+
+@mixin font-card {
+  font-family: $font-family-second;
+  font-weight: $font-weight-regular;
+  font-size: $font-size-body;
+  line-height: $font-line-base;
+  color: $color-white;
+  opacity: 0.7;
+}
+
+@mixin screen {
+  position: relative;
+  width: 100%;
+  height: $screen-height;
+  overflow: hidden;
+}
+
+@mixin container {
+  width: 100%;
+  max-width: $screen-width;
+  margin-inline: auto;
+  padding-inline: $layout-padding-x;
+}
+
+@mixin social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $social-size;
+  height: $social-size;
+}

@@ -1,17 +1,7 @@
-import { useParams, Navigate } from "react-router"
-import { isLocale } from "@/shared/config/locales"
-
-import NotFoundPage from "../not-found"
-
+import { useLoaderData } from "react-router";
+import type { Locale } from "@/shared/config/locales";
 const LandingPage = () => {
-    const {lang } = useParams()
-    if (lang === 'en') {
-        return <Navigate to="/" replace />
-    };
-    if (lang && !isLocale(lang)) {
-        return <NotFoundPage />
-    };
-    return <h1>Landing: {lang ?? 'en'}</h1>;
-}
-
-export default LandingPage
+	const { lang } = useLoaderData() as { lang: Locale };
+	return <h1>Landing: {lang}</h1>;
+};
+export default LandingPage;

@@ -37,6 +37,80 @@
 
 Схема страниц и связей — в [docs/architecture.md](docs/architecture.md).
 
+## Роутинг
+
+Роутер работает в data mode: `createBrowserRouter` и `RouterProvider`. Маршруты описаны в `src/app/router.tsx`. Страница получает данные из `loader` через `useLoaderData()`.
+
+Один маршрут `/:lang?` открывает английскую и русскую версии. Список языков лежит в `LOCALES` в `src/shared/config/locales.ts`. Сейчас это `en` и `ru`.
+
+| Адрес                                      | Что происходит             |
+| ------------------------------------------ | -------------------------- |
+| `/`                                        | Лендинг, язык `en`         |
+| `/ru`                                      | Лендинг, язык `ru`         |
+| `/en`                                      | Редирект на `/`            |
+| `/de` и любой другой неизвестный язык      | Страница 404               |
+| `/a/b` и любой путь длиннее одного сегмента | Страница 404               |
+
+`loader` до отрисовки страницы делает три вещи:
+
+1. Если в адресе `en`, бросает `redirect("/")`.
+2. Если сегмент не входит в `LOCALES`, бросает ответ со статусом 404. Его рисует `errorElement`.
+3. Иначе параллельно вызывает `getTasks`, `getBenefits` и `getMultiply` и возвращает их результат вместе с языком.
+
+Новый язык добавляется в массив `LOCALES`. Маршрут менять не нужно. Для подписей i18next к нему нужен отдельный словарь.
+
+### Запросы
+
+Три GET уже вызываются из `loader`. Пока это заглушки в `src/shared/api`:
+
+| Функция       | Файл                         | Эндпоинт               |
+| ------------- | ---------------------------- | ---------------------- |
+| `getTasks`    | `src/shared/api/tasks.ts`    | `GET /{lang}/tasks`    |
+| `getBenefits` | `src/shared/api/benefits.ts` | `GET /{lang}/benefits` |
+| `getMultiply` | `src/shared/api/multiply.ts` | `GET /{lang}/multiply` |
+
+Наружу функции отдаёт только `src/shared/api/index.ts`. Импорт из конкретных файлов не используется.
+
+Функция принимает `Locale` и возвращает разобранное тело ответа. Параметр называется `lang` и подставляется в путь. Адрес и ключ берутся из `src/shared/api/config.ts`, как в разделе «Использование в коде».
+
+```ts
+export const getTasks = async (lang: Locale) => {
+  const response = await fetch(`${API_URL}/${lang}/tasks`, {
+    headers: { "x-api-key": API_KEY },
+  });
+
+  if (!response.ok) {
+    throw new Response(null, { status: response.status });
+  }
+
+  return response.json();
+};
+```
+
+`getBenefits` и `getMultiply` устроены так же. `loader` менять не нужно: он уже ждёт все три функции через `Promise.all` и кладёт результат в `{ tasks, benefits, multiply, lang }`.
+
+Страница читает этот объект так:
+
+```tsx
+const { lang, tasks, benefits, multiply } = useLoaderData() as {
+  lang: Locale;
+  tasks: TasksResponse;
+  benefits: BenefitsResponse;
+  multiply: MultiplyResponse;
+};
+```
+
+Типы ответов описываются рядом с функциями в `shared/api`.
+
+Правила:
+
+- Это обычные функции. Хук внутри `loader` не вызывается: `loader` выполняется до рендера.
+- `POST /form` в этот `loader` не входит. Отправка формы живёт в `features/contact-form` и вызывает свою функцию из `shared/api`.
+- Если функция бросает ошибку, роутер рисует `errorElement`. Сейчас это страница 404.
+- Виджеты экранов данные сами не запрашивают. Они получают их со страницы.
+
+Прелоадер в эту схему пока не входит.
+
 ## Модель работы с ветками в Git
 
 Задача стартует, когда за ней закреплён ответственный и её перенесли в колонку In progress.

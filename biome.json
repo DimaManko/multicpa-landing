@@ -25,7 +25,14 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "preset": "recommended"
+      "preset": "recommended",
+      "correctness": {
+        "useHookAtTopLevel": "error",
+        "useExhaustiveDependencies": "error"
+      }
+    },
+    "domains": {
+      "react": "recommended"
     }
   },
   "json": {
@@ -43,8 +50,219 @@
     "enabled": true,
     "actions": {
       "source": {
-        "organizeImports": "on"
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              [
+                ":NODE:",
+                ":PACKAGE:"
+              ],
+              ":BLANK_LINE:",
+              [
+                "@/app/**"
+              ],
+              [
+                "@/pages",
+                "@/pages/**"
+              ],
+              [
+                "@/widgets",
+                "@/widgets/**"
+              ],
+              [
+                "@/features",
+                "@/features/**"
+              ],
+              [
+                "@/shared",
+                "@/shared/**"
+              ],
+              ":BLANK_LINE:",
+              [
+                ":PATH:",
+                "!:STYLE:"
+              ],
+              ":BLANK_LINE:",
+              ":STYLE:"
+            ]
+          }
+        }
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "src/shared/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "@/app",
+                      "@/app/**",
+                      "@/pages",
+                      "@/pages/**",
+                      "@/widgets",
+                      "@/widgets/**",
+                      "@/features",
+                      "@/features/**"
+                    ],
+                    "message": "FSD: shared — нижний слой, он не может импортировать из вышележащих слоёв."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/features/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "@/app",
+                      "@/app/**",
+                      "@/pages",
+                      "@/pages/**",
+                      "@/widgets",
+                      "@/widgets/**"
+                    ],
+                    "message": "FSD: features не может импортировать из вышележащих слоёв (widgets, pages, app)."
+                  },
+                  {
+                    "group": [
+                      "@/features",
+                      "@/features/**"
+                    ],
+                    "message": "FSD: фичи не импортируют друг друга. Внутри своего слайса используйте относительные пути, общий код выносите в shared."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/widgets/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "@/app",
+                      "@/app/**",
+                      "@/pages",
+                      "@/pages/**"
+                    ],
+                    "message": "FSD: widgets не может импортировать из вышележащих слоёв (pages, app)."
+                  },
+                  {
+                    "group": [
+                      "@/widgets",
+                      "@/widgets/**"
+                    ],
+                    "message": "FSD: виджеты не импортируют друг друга. Внутри своего слайса используйте относительные пути."
+                  },
+                  {
+                    "group": [
+                      "@/features/*/**"
+                    ],
+                    "message": "FSD: импортируйте фичу через её public API (@/features/<slice>)."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/pages/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "@/app",
+                      "@/app/**"
+                    ],
+                    "message": "FSD: pages не может импортировать из app."
+                  },
+                  {
+                    "group": [
+                      "@/pages",
+                      "@/pages/**"
+                    ],
+                    "message": "FSD: страницы не импортируют друг друга. Внутри своего слайса используйте относительные пути."
+                  },
+                  {
+                    "group": [
+                      "@/widgets/*/**",
+                      "@/features/*/**"
+                    ],
+                    "message": "FSD: импортируйте слайс через его public API (@/<layer>/<slice>)."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/app/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "@/pages/*/**",
+                      "@/widgets/*/**",
+                      "@/features/*/**"
+                    ],
+                    "message": "FSD: импортируйте слайс через его public API (@/<layer>/<slice>)."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

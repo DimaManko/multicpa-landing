@@ -20,13 +20,13 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: (source: string, filename: string) => {
-          const normalized = filename.replaceAll("\\", "/");
+          const normalized = filename.replaceAll('\\', '/')
 
-          if (normalized.includes("/shared/assets/styles/")) {
-            return source;
+          if (normalized.includes('/shared/assets/styles/')) {
+            return source
           }
 
-          return `@use "@/shared/assets/styles/variables" as *;\n@use "@/shared/assets/styles/mixins" as *;\n${source}`;
+          return `@use "@/shared/assets/styles/variables" as *;\n@use "@/shared/assets/styles/mixins" as *;\n${source}`
         },
       },
     },

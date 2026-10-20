@@ -16,6 +16,22 @@ export default defineConfig({
     },
   },
 
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: (source: string, filename: string) => {
+          const normalized = filename.replaceAll("\\", "/");
+
+          if (normalized.includes("/shared/assets/styles/")) {
+            return source;
+          }
+
+          return `@use "@/shared/assets/styles/variables" as *;\n@use "@/shared/assets/styles/mixins" as *;\n${source}`;
+        },
+      },
+    },
+  },
+
   build: {
     rolldownOptions: {
       output: {

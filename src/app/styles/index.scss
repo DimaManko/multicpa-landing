@@ -1,0 +1,13 @@
+@use "modern-normalize/modern-normalize.css";
+@use "../../shared/assets/styles";
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  color: $color-white;
+  font-family: $font-family-base;
+}

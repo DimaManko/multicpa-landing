@@ -19,6 +19,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
+        loadPaths: [resolvePath('./node_modules')],
         additionalData: (source: string, filename: string) => {
           const normalized = filename.replaceAll('\\', '/')
 

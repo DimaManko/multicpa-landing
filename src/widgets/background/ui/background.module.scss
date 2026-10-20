@@ -1,0 +1,7 @@
+.screen {
+  @include screen;
+  background-image:
+    radial-gradient(circle 594px at 75% 21%, rgb($color-dark, 0.2), transparent 70%),
+    radial-gradient(circle 594px at 6% 79%, rgb($color-dark, 0.2), transparent 70%),
+    linear-gradient(121.64deg, #dc8400 3.49%, #560080 49.69%, #220032 91.86%);
+}

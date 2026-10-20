@@ -1,5 +1,7 @@
+import { Background } from '@/widgets/background'
+
 const NotFoundPage = () => {
-  return <h1>404</h1>
+  return <Background />
 }
 
 export default NotFoundPage

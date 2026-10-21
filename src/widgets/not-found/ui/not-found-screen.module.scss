@@ -1,0 +1,71 @@
+.screen {
+  @include screen;
+}
+
+.content {
+  @include container;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.title {
+  width: 100%;
+  margin: 213px 0 0;
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  font-size: 378px;
+  line-height: $font-line-section;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-transform: uppercase;
+  color: $color-white;
+}
+
+.snake {
+  --snake-width-min: 386px;
+  --snake-width-max: 541px;
+  position: absolute;
+  left: 6px;
+  bottom: 5px;
+  width: clamp(
+    var(--snake-width-min),
+    calc(
+      var(--snake-width-min) + (100vw - #{$breakpoint-md}) *
+        ((var(--snake-width-max) - var(--snake-width-min)) / (#{$screen-width} - #{$breakpoint-md}))
+    ),
+    var(--snake-width-max)
+  );
+  height: auto;
+  user-select: none;
+
+  @media (max-width: $breakpoint-md) {
+    position: static;
+    width: 100%;
+    max-width: var(--snake-width-min);
+  }
+}
+
+.button {
+  @include font-button;
+  position: relative;
+  isolation: isolate;
+  height: $button-height;
+  margin-top: 64px;
+  padding: 10px 28px 0 20px;
+  border: 0;
+  background: none;
+  color: $color-ink;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: -1.25px;
+  z-index: -1;
+  background: url("@/shared/assets/icons/button-main.svg") center / 100% 100% no-repeat;
+}

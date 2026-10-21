@@ -1,0 +1,49 @@
+@use "./variables" as *;
+
+@font-face {
+  font-family: "Halvar Breitschrift";
+  src: url("../fonts/HalvarBreit-Lt.ttf") format("truetype");
+  font-weight: $font-weight-light;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halvar Breitschrift";
+  src: url("../fonts/HalvarBreit-Rg.ttf") format("truetype");
+  font-weight: $font-weight-regular;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halvar Breitschrift";
+  src: url("../fonts/HalvarBreit-Md.ttf") format("truetype");
+  font-weight: $font-weight-medium;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halvar Breitschrift";
+  src: url("../fonts/HalvarBreit-Bd.ttf") format("truetype");
+  font-weight: $font-weight-bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Stolzl";
+  src: url("../fonts/Stolzl-Light.ttf") format("truetype");
+  font-weight: $font-weight-light;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Stolzl";
+  src: url("../fonts/Stolzl-Regular.ttf") format("truetype");
+  font-weight: $font-weight-regular;
+  font-style: normal;
+  font-display: swap;
+}

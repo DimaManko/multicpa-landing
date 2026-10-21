@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from "node:url";
+import { fileURLToPath, URL } from 'node:url'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
@@ -16,6 +16,22 @@ export default defineConfig({
     },
   },
 
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: (source: string, filename: string) => {
+          const normalized = filename.replaceAll("\\", "/");
+
+          if (normalized.includes("/shared/assets/styles/")) {
+            return source;
+          }
+
+          return `@use "@/shared/assets/styles/variables" as *;\n@use "@/shared/assets/styles/mixins" as *;\n${source}`;
+        },
+      },
+    },
+  },
+
   build: {
     rolldownOptions: {
       output: {
@@ -29,5 +45,3 @@ export default defineConfig({
     },
   },
 })
-  
-

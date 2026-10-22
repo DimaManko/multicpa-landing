@@ -1,3 +1,6 @@
-export { getBenefits } from "./benefits";
-export { getMultiply } from "./multiply";
-export { getTasks } from "./tasks";
+export type { Benefits } from './benefits'
+export { useBenefits } from './benefits'
+export type { Multiply } from './multiply'
+export { useMultiply } from './multiply'
+export type { Tasks } from './tasks'
+export { useTasks } from './tasks'

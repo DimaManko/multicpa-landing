@@ -1,5 +1,7 @@
 export type { Benefits } from './benefits'
 export { useBenefits } from './benefits'
+export type { ContactFormData } from './form'
+export { useSendForm } from './form'
 export type { Multiply } from './multiply'
 export { useMultiply } from './multiply'
 export type { Tasks } from './tasks'

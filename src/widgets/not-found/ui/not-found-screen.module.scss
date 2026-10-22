@@ -1,5 +1,91 @@
 .screen {
+  --title-size: clamp(
+    180px,
+    calc(180px + (100vw - 393px) * 198 / 1047),
+    378px
+  );
+  --title-margin-top: clamp(
+    93px,
+    calc(93px + (100vw - 393px) * 120 / 1047),
+    213px
+  );
+  --gap-title-button: clamp(
+    32px,
+    calc(32px + (100vw - 393px) * 32 / 1047),
+    64px
+  );
+  --button-font-size: clamp(
+    18px,
+    calc(18px + (100vw - 393px) * 5 / 1047),
+    23px
+  );
+  --button-height: clamp(
+    60px,
+    calc(60px + (100vw - 393px) * 22 / 1047),
+    82px
+  );
+  --button-padding-top: clamp(
+    7px,
+    calc(7px + (100vw - 393px) * 3 / 1047),
+    10px
+  );
+  --button-padding-right: clamp(
+    20px,
+    calc(20px + (100vw - 393px) * 8 / 1047),
+    28px
+  );
+  --button-padding-left: clamp(
+    16px,
+    calc(16px + (100vw - 393px) * 4 / 1047),
+    20px
+  );
+  --snake-width: clamp(
+    386px,
+    calc(386px + (100vw - 393px) * 155 / 1047),
+    541px
+  );
+  --snake-height: calc(var(--snake-width) * 428 / 541);
+  --snake-left: clamp(
+    6px,
+    calc(56px + (100vw - 393px) * (6 - 56) / 1047),
+    56px
+  );
+  --snake-bottom: clamp(
+    -50px,
+    calc(-50px + (100vw - 393px) * 55 / 1047),
+    5px
+  );
+  --gap-content-snake: 24px;
+  --snake-visible-height: calc(
+    var(--snake-height) + min(var(--snake-bottom), 0px)
+  );
+  --content-pad-bottom: calc(
+    var(--snake-visible-height) *
+      clamp(0, (1400px - 100vw) / 200px, 1) + var(--gap-content-snake)
+  );
+  --title-size-fit: min(
+    var(--title-size),
+    calc(
+      (
+          100dvh - var(--content-pad-bottom) - var(--button-height) -
+            var(--gap-title-button) - 8px
+        ) /
+        0.9
+    )
+  );
+  --title-margin-fit: max(
+    0px,
+    min(
+      var(--title-margin-top),
+      calc(
+        100dvh - var(--content-pad-bottom) - var(--title-size-fit) * 0.9 -
+          var(--button-height) - var(--gap-title-button)
+      )
+    )
+  );
+
   @include screen;
+  overflow: hidden;
 }
 
 .content {
@@ -8,16 +94,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
   height: 100%;
+  padding-bottom: max(var(--content-pad-bottom), var(--gap-content-snake));
+  overflow: hidden;
 }
 
 .title {
+  flex-shrink: 0;
   width: 100%;
-  margin: 213px 0 0;
+  margin: var(--title-margin-fit) 0 0;
   font-family: $font-family-base;
   font-weight: $font-weight-bold;
-  font-size: 378px;
-  line-height: $font-line-section;
+  font-size: var(--title-size-fit);
+  line-height: 0.9;
   letter-spacing: -0.01em;
   text-align: center;
   text-transform: uppercase;
@@ -25,40 +115,33 @@
 }
 
 .snake {
-  --snake-width-min: 386px;
-  --snake-width-max: 541px;
   position: absolute;
-  left: 6px;
-  bottom: 5px;
-  width: clamp(
-    var(--snake-width-min),
-    calc(
-      var(--snake-width-min) + (100vw - #{$breakpoint-md}) *
-        ((var(--snake-width-max) - var(--snake-width-min)) / (#{$screen-width} - #{$breakpoint-md}))
-    ),
-    var(--snake-width-max)
-  );
+  left: var(--snake-left);
+  right: auto;
+  bottom: var(--snake-bottom);
+  width: var(--snake-width);
   height: auto;
+  margin: 0;
+  pointer-events: none;
   user-select: none;
-
-  @media (max-width: $breakpoint-md) {
-    position: static;
-    width: 100%;
-    max-width: var(--snake-width-min);
-  }
 }
 
 .button {
   @include font-button;
   position: relative;
+  flex-shrink: 0;
   isolation: isolate;
-  height: $button-height;
-  margin-top: 64px;
-  padding: 10px 28px 0 20px;
+  box-sizing: border-box;
+  height: var(--button-height);
+  margin-top: var(--gap-title-button);
+  padding: var(--button-padding-top) var(--button-padding-right) 0
+    var(--button-padding-left);
   border: 0;
   background: none;
+  font-size: var(--button-font-size);
   color: $color-ink;
   text-transform: uppercase;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -67,5 +150,68 @@
   position: absolute;
   inset: -1.25px;
   z-index: -1;
-  background: url("@/shared/assets/icons/button-main.svg") center / 100% 100% no-repeat;
+  background: url("@/shared/assets/icons/button-main.svg") center / 100% 100%
+    no-repeat;
+}
+
+@media (max-width: 960px) {
+  .screen {
+    --title-size-fit: min(
+      var(--title-size),
+      calc(
+        (
+            100dvh - var(--content-pad-bottom) - var(--button-height) -
+              var(--gap-title-button) - 8px
+          ) /
+          2.4
+      )
+    );
+    --title-margin-fit: max(
+      0px,
+      min(
+        var(--title-margin-top),
+        calc(
+          100dvh - var(--content-pad-bottom) - var(--title-size-fit) * 2.4 -
+            var(--button-height) - var(--gap-title-button)
+        )
+      )
+    );
+  }
+
+  .title {
+    width: 0.92em;
+    line-height: 0.8;
+    word-break: break-all;
+  }
+}
+
+@media (max-height: 700px) and (max-width: 480px) {
+  .screen {
+    --snake-width: min(386px, 100vw);
+    --snake-height: calc(var(--snake-width) * 428 / 541);
+    --snake-left: 0px;
+    --snake-bottom: calc(min(0px, 42dvh - var(--snake-height)));
+    --snake-visible-height: calc(
+      var(--snake-height) + min(var(--snake-bottom), 0px)
+    );
+    --content-pad-bottom: calc(
+      var(--snake-visible-height) + var(--gap-content-snake)
+    );
+    --title-margin-top: 16px;
+    --gap-title-button: 16px;
+    --button-height: 52px;
+    --button-font-size: 16px;
+    --title-size: min(
+      180px,
+      calc(
+        (
+            100dvh - var(--content-pad-bottom) - var(--button-height) -
+              var(--gap-title-button) - 24px
+          ) /
+          2.4
+      )
+    );
+    --title-size-fit: var(--title-size);
+    --title-margin-fit: var(--title-margin-top);
+  }
 }

@@ -1,27 +1,14 @@
-import { useState } from 'react'
-import { useParams } from 'react-router'
+import { useLoaderData } from 'react-router'
 
 import { Background } from '@/widgets/background'
-import { Preloader } from '@/widgets/preloader'
-import { isLocale } from '@/shared/config/locales'
-
-import { useLandingData } from './model/useLandingData'
+import type { Locale } from '@/shared/config/locales'
 
 const LandingPage = () => {
-  const { lang } = useParams()
-  const locale = lang && isLocale(lang) ? lang : 'en'
-  const { isLoading, error } = useLandingData(locale)
-  const [isPreloaderDone, setIsPreloaderDone] = useState(false)
+  const { lang } = useLoaderData() as { lang: Locale }
 
   return (
     <Background>
-      <Preloader isLoading={isLoading} onFinish={() => setIsPreloaderDone(true)} />
-      {isPreloaderDone && (
-        <>
-          <h1>Landing: {locale}</h1>
-          {error && <p>{error.message}</p>}
-        </>
-      )}
+      <h1>Landing: {lang}</h1>
     </Background>
   )
 }

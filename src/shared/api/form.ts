@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { getEnv } from './useFetch'
+import { getEnv } from '@/shared/config/env'
 
 export interface ContactFormData {
   name?: string

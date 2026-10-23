@@ -1,0 +1,35 @@
+@use "../../assets/styles/variables" as vars;
+
+.button {
+    width: 283px;
+    height: 85px;
+    min-height: 0;
+    padding: 10px 20px 2px 10px;
+
+    border: 0;
+    background-color: transparent;
+    background-image: url("../../assets/icons/button-volume.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    font-family: vars.$font-family-base;
+    font-size: vars.$font-size-button;
+    font-weight: vars.$font-weight-medium;
+    letter-spacing: vars.$font-tracking-button;
+    text-transform: uppercase;
+  
+
+  cursor: pointer;
+}
+
+.button:focus-visible {
+    outline: 2px solid vars.$color-purple;
+    outline-offset: 4px;
+}
+
+.button:disabled {
+    cursor: not-allowed;
+}
+
+

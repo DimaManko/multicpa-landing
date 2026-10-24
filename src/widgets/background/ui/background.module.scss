@@ -20,6 +20,12 @@
   &[data-dimmed="true"]::after {
     opacity: 1;
   }
+
+  @media (max-width: $breakpoint-md) {
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+  }
 }
 
 .grid {

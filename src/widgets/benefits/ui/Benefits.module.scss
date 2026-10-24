@@ -1,0 +1,146 @@
+.screen {
+  @include screen;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.content {
+  @include container;
+  position: relative;
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(0, 1fr) 563px;
+  grid-template-rows: auto minmax(0, 1fr);
+  column-gap: 40px;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 28px;
+}
+
+.label {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  align-self: start;
+}
+
+.copy {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: center;
+  max-width: 540px;
+}
+
+.title {
+  margin: 0;
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  font-size: 48px;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: $color-white;
+}
+
+.accent {
+  color: $color-yellow;
+}
+
+.description {
+  margin: 24px 0 0;
+  max-width: 480px;
+  @include font-body;
+  color: $color-white;
+}
+
+.snake {
+  position: absolute;
+  z-index: 1;
+  top: 54%;
+  left: 34%;
+  width: clamp(190px, 24vw, 360px);
+  height: auto;
+  transform: translate(0, -38%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.cards {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  grid-column: 2;
+  grid-row: 2;
+  align-self: center;
+  width: 563px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 563px;
+  height: 112px;
+  margin: 0;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: $color-purple;
+  @include font-body;
+  color: $color-white;
+
+  &:hover {
+    background-color: $color-yellow;
+    color: $color-dark;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .screen {
+    padding: 24px 20px 32px;
+  }
+
+  .content {
+    display: contents;
+  }
+
+  .label,
+  .snake {
+    display: none;
+  }
+
+  .copy {
+    order: 1;
+    max-width: none;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .description {
+    max-width: none;
+  }
+
+  .marquee {
+    order: 2;
+    margin-inline: -20px;
+  }
+
+  .cards {
+    order: 3;
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
+    height: auto;
+    min-height: 112px;
+  }
+}

@@ -2,13 +2,14 @@ import { Suspense, useState } from 'react'
 import { Await, useLoaderData } from 'react-router'
 
 import { Background } from '@/widgets/background'
+import { Benefits } from '@/widgets/benefits'
 import { Preloader } from '@/widgets/preloader'
 
 import type { loader } from './model/loader'
 import { useIsPending } from './model/useIsPending'
 
 const LandingPage = () => {
-  const { lang, data } = useLoaderData<typeof loader>()
+  const { data } = useLoaderData<typeof loader>()
   const isLoading = useIsPending(data)
   const [isPreloaderDone, setIsPreloaderDone] = useState(false)
 
@@ -18,7 +19,17 @@ const LandingPage = () => {
       {isPreloaderDone && (
         <Suspense fallback={null}>
           <Await resolve={data} errorElement={<p>Failed to load data</p>}>
-            {() => <h1>Landing: {lang}</h1>}
+            {(resolved) => {
+              const benefits = resolved[1]
+
+              return (
+                <Benefits
+                  title={benefits.title}
+                  description={benefits.description}
+                  benefits={benefits.benefits}
+                />
+              )
+            }}
           </Await>
         </Suspense>
       )}

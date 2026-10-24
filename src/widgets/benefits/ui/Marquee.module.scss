@@ -1,0 +1,67 @@
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid $color-yellow;
+  padding-block: 10px;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding-right: 28px;
+}
+
+.phrase {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  font-size: 64px;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px $color-yellow;
+}
+
+.logo {
+  display: block;
+  width: 52px;
+  height: auto;
+  user-select: none;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .phrase {
+    font-size: 32px;
+  }
+
+  .logo {
+    width: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}

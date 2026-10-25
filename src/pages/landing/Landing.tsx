@@ -9,7 +9,7 @@ import type { loader } from './model/loader'
 import { useIsPending } from './model/useIsPending'
 
 const LandingPage = () => {
-  const { data } = useLoaderData<typeof loader>()
+  const { data, lang } = useLoaderData<typeof loader>()
   const isLoading = useIsPending(data)
   const [isPreloaderDone, setIsPreloaderDone] = useState(false)
 
@@ -24,6 +24,7 @@ const LandingPage = () => {
 
               return (
                 <Benefits
+                  locale={lang}
                   title={benefits.title}
                   description={benefits.description}
                   benefits={benefits.benefits}

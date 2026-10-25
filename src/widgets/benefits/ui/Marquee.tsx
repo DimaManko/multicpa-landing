@@ -1,39 +1,38 @@
-import logo from '@/shared/assets/icons/logo.svg'
-
 import styles from './Marquee.module.scss'
 
-const PHRASE = 'DREAM BIG EARN BIGGER!'
 const PHRASE_IDS = ['first', 'second'] as const
 
 type Props = {
+  phrase: string
   className?: string
 }
 
 type GroupProps = {
+  phrase: string
   isHidden?: boolean
 }
 
-function PhraseGroup({ isHidden = false }: GroupProps) {
+function PhraseGroup({ phrase, isHidden = false }: GroupProps) {
   return (
     <div className={styles.group} aria-hidden={isHidden || undefined}>
       {PHRASE_IDS.map((id) => (
         <span className={styles.phrase} key={id}>
-          {PHRASE}
-          <img className={styles.logo} src={logo} alt="" draggable={false} />
+          {phrase}
+          <span className={styles.logo} aria-hidden="true" />
         </span>
       ))}
     </div>
   )
 }
 
-export function Marquee({ className }: Props) {
+export function Marquee({ phrase, className }: Props) {
   const marqueeClassName = className ? `${styles.marquee} ${className}` : styles.marquee
 
   return (
     <div className={marqueeClassName}>
       <div className={styles.track}>
-        <PhraseGroup />
-        <PhraseGroup isHidden />
+        <PhraseGroup phrase={phrase} />
+        <PhraseGroup phrase={phrase} isHidden />
       </div>
     </div>
   )

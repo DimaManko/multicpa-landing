@@ -8,11 +8,13 @@
 }
 
 .content {
+  --card-width: clamp(220px, calc(100vw * 563 / 1300 - 60.631px), 563px);
+
   @include container;
   position: relative;
   display: grid;
   flex: 1;
-  grid-template-columns: minmax(0, 1fr) 563px;
+  grid-template-columns: minmax(0, 1fr) var(--card-width);
   grid-template-rows: auto minmax(0, 1fr);
   column-gap: 40px;
   align-items: center;
@@ -21,6 +23,8 @@
 }
 
 .label {
+  position: relative;
+  z-index: 1;
   grid-column: 2;
   grid-row: 1;
   justify-self: end;
@@ -28,19 +32,21 @@
 }
 
 .copy {
+  position: relative;
+  z-index: 1;
   grid-column: 1;
   grid-row: 2;
-  align-self: center;
-  max-width: 540px;
+  align-self: start;
+  margin-top: 79px;
+  max-width: 746px;
 }
 
 .title {
   margin: 0;
   font-family: $font-family-base;
   font-weight: $font-weight-bold;
-  font-size: 48px;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+  font-size: clamp(28px, calc(100vw * 50 / 1440), 50px);
+  line-height: 1;
   color: $color-white;
 }
 
@@ -49,35 +55,35 @@
 }
 
 .description {
-  margin: 24px 0 0;
-  max-width: 480px;
+  margin: 20px 0 0;
+  max-width: 563px;
   @include font-body;
+  font-weight: $font-weight-medium;
   color: $color-white;
 }
 
 .snake {
   position: absolute;
-  z-index: 1;
-  top: 54%;
-  left: 34%;
-  width: clamp(190px, 24vw, 360px);
+  z-index: 0;
+  top: 40%;
+  left: 30%;
+  width: clamp(240px, calc(100vw * 390 / 1440), 390px);
   height: auto;
-  transform: translate(0, -38%);
   pointer-events: none;
   user-select: none;
 }
 
 .cards {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   grid-column: 2;
   grid-row: 2;
-  align-self: center;
-  width: 563px;
-  margin: 0;
+  align-self: start;
+  margin-top: 256px;
+  width: var(--card-width);
   padding: 0;
   list-style: none;
 }
@@ -86,18 +92,18 @@
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  width: 563px;
-  height: 112px;
+  width: 100%;
   margin: 0;
-  padding: 20px;
+  padding: 20px max(20px, calc(100% * 83 / 563)) 20px 20px;
   border-radius: 8px;
   background-color: $color-purple;
-  @include font-body;
-  color: $color-white;
+  @include font-card;
+  opacity: 1;
 
   &:hover {
     background-color: $color-yellow;
     color: $color-dark;
+    opacity: 1;
   }
 }
 
@@ -110,8 +116,7 @@
     display: contents;
   }
 
-  .label,
-  .snake {
+  .label {
     display: none;
   }
 
@@ -122,19 +127,23 @@
 
   .title {
     font-size: 36px;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
   }
 
   .description {
     max-width: none;
+    margin-top: 24px;
+    font-weight: $font-weight-bold;
   }
 
   .marquee {
     order: 2;
-    margin-inline: -20px;
   }
 
   .cards {
     order: 3;
+    gap: 16px;
     width: 100%;
   }
 
@@ -142,5 +151,27 @@
     width: 100%;
     height: auto;
     min-height: 112px;
+    padding: 20px;
+    font-size: $font-size-body;
+  }
+}
+
+@media (max-width: $breakpoint-xl) {
+  .snake {
+    left: 34%;
+    width: 285px;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .snake {
+    left: 30%;
+    width: 264px;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .snake {
+    display: none;
   }
 }

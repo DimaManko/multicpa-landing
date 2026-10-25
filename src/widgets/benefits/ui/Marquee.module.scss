@@ -1,7 +1,11 @@
 .marquee {
   overflow: hidden;
-  border-block: 1px solid $color-yellow;
+  box-sizing: border-box;
+  width: calc(100% + 48px);
+  margin-inline: -24px;
+  border-block: 3px solid $color-yellow;
   padding-block: 10px;
+  transform: rotate(1deg);
 }
 
 .track {
@@ -13,30 +17,38 @@
 .group {
   display: flex;
   align-items: center;
-  gap: 28px;
-  padding-right: 28px;
+  gap: 50px;
+  padding-right: 50px;
 }
 
 .phrase {
   display: inline-flex;
   align-items: center;
-  gap: 28px;
+  gap: 50px;
   font-family: $font-family-base;
-  font-weight: $font-weight-bold;
-  font-size: 64px;
+  font-weight: $font-weight-light;
+  font-size: 70px;
   line-height: 0.9;
   letter-spacing: -0.04em;
   text-transform: uppercase;
   white-space: nowrap;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px $color-yellow;
+  color: $color-yellow;
 }
 
 .logo {
   display: block;
-  width: 52px;
-  height: auto;
+  flex: none;
+  width: 60px;
+  aspect-ratio: 45 / 41.1625;
+  background-color: $color-yellow;
+  mask-image: url("../../../shared/assets/icons/logo.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("../../../shared/assets/icons/logo.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
   user-select: none;
 }
 
@@ -51,7 +63,20 @@
 }
 
 @media (max-width: $breakpoint-md) {
+  .marquee {
+    width: calc(100% + 88px);
+    margin-inline: -44px;
+    border-block-width: 1px;
+  }
+
+  .group {
+    gap: 28px;
+    padding-right: 28px;
+  }
+
   .phrase {
+    gap: 28px;
+    font-weight: $font-weight-bold;
     font-size: 32px;
   }
 

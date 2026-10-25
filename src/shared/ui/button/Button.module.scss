@@ -1,35 +1,124 @@
-@use "../../assets/styles/variables" as vars;
 
-.button {
-    width: 283px;
-    height: 85px;
-    min-height: 0;
-    padding: 10px 20px 2px 10px;
 
-    border: 0;
-    background-color: transparent;
-    background-image: url("../../assets/icons/button-volume.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+// .button {
+//     @include font-button;
 
-    font-family: vars.$font-family-base;
-    font-size: vars.$font-size-button;
-    font-weight: vars.$font-weight-medium;
-    letter-spacing: vars.$font-tracking-button;
-    text-transform: uppercase;
+//     height: $button-height;
+//     padding: 0 32px;
+//     white-space: nowrap;
+
+
+//     border: 0;
+//     background-color: transparent;
+//     background-image: url("@/shared/assets/icons/button-volume.svg");
+//     background-repeat: no-repeat;
+//     background-position: center;
+//     background-size: 100% 100%;
+
+//     // font-family: $font-family-base;
+//     // font-size: $font-size-button;
+//     // font-weight: $font-weight-medium;
+//     // letter-spacing: $font-tracking-button;
+//     text-transform: uppercase;
   
 
+//     cursor: pointer;
+// }
+
+// .button:focus-visible {
+//     outline: 2px solid $color-purple;
+//     outline-offset: 4px;
+// }
+
+// .button:disabled {
+//     opacity: 0.5;
+//     cursor: not-allowed;
+// }
+
+
+
+.button {
+  @include font-button;
+
+  --button-fill: #{$color-yellow};
+  --button-ink: #{$color-ink};
+
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  height: $button-height;
+  padding: 8px 10px 0 0;
+
+  border: 0;
+  background: transparent;
+  color: var(--button-ink);
+
+  white-space: nowrap;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
+.button::before,
+.button::after {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  border: 2px solid var(--button-ink);
+  background-color: var(--button-fill);
+  pointer-events: none;
+}
+
+.button::before {
+  top: 0;
+  left: 0;
+  width: calc(100% - 10px);
+  height: 8px;
+
+  transform: skewX(-51.34deg);
+  transform-origin: bottom left;
+}
+
+.button::after {
+  top: 8px;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+
+  transform: skewY(-38.66deg);
+  transform-origin: top left;
+}
+
+.face {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0 17px;
+
+  border: 2px solid var(--button-ink);
+  background-color: var(--button-fill);
+}
+
+@media (hover: hover) {
+  .button:not(:disabled):hover {
+    --button-fill: #{$color-ink};
+    --button-ink: #{$color-yellow};
+  }
+}
+
 .button:focus-visible {
-    outline: 2px solid vars.$color-purple;
-    outline-offset: 4px;
+  outline: none;
+}
+
+.button:focus-visible .face {
+  outline: 2px solid $color-purple;
+  outline-offset: -6px;
 }
 
 .button:disabled {
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
-
-

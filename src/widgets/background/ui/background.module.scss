@@ -25,6 +25,10 @@
     height: auto;
     min-height: 100%;
     overflow: visible;
+    background-image:
+      radial-gradient(circle 594px at 75% 21%, rgb($color-dark, 0.2), transparent 70%),
+      radial-gradient(circle 594px at 6% 79%, rgb($color-dark, 0.2), transparent 70%),
+      linear-gradient(90deg, #9500dc 0%, #560080 56%, #220032 100%);
   }
 }
 

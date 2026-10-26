@@ -13,6 +13,6 @@ export const marqueePhrase: LocalizedCopy = {
 }
 
 export const accentWord: LocalizedCopy = {
-  en: 'guaranteed',
-  ru: 'гарантировать',
+  en: 'guarant',
+  ru: 'гаранти',
 }

@@ -41,11 +41,11 @@
   width: 60px;
   aspect-ratio: 45 / 41.1625;
   background-color: $color-yellow;
-  mask-image: url("../../../shared/assets/icons/logo.svg");
+  mask-image: url("@/shared/assets/icons/logo.svg");
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: contain;
-  -webkit-mask-image: url("../../../shared/assets/icons/logo.svg");
+  -webkit-mask-image: url("@/shared/assets/icons/logo.svg");
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   -webkit-mask-size: contain;
@@ -63,30 +63,65 @@
 }
 
 @media (max-width: $breakpoint-md) {
+  // fluid: 768px → 393px (range 375px)
+  // padding-inline на .screen: clamp(16px, calc(2.13vw + 7.6px), 24px)
+  // marquee должен точно выходить за этот padding
+
   .marquee {
-    width: calc(100% + 88px);
-    margin-inline: -44px;
+    width: calc(100% + 2 * clamp(16px, calc(2.13vw + 7.6px), 24px));
+    margin-inline: clamp(-24px, calc(-2.13vw - 7.6px), -16px);
     border-block-width: 1px;
   }
 
   .group {
-    gap: 28px;
-    padding-right: 28px;
+    gap: clamp(28px, calc(3.2vw + 15.4px), 40px);
+    padding-right: clamp(28px, calc(3.2vw + 15.4px), 40px);
   }
 
   .phrase {
-    gap: 28px;
-    font-weight: $font-weight-bold;
-    font-size: 32px;
+    gap: clamp(28px, calc(3.2vw + 15.4px), 40px);
+    font-weight: $font-weight-light;
+    font-size: clamp(35px, calc(4.53vw + 17.2px), 52px);
   }
 
   .logo {
-    width: 32px;
+    width: clamp(32px, calc(3.2vw + 19.4px), 44px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .track {
     animation: none;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .group[aria-hidden='true'] {
+    display: none;
+  }
+
+  .group {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding-right: 0;
+  }
+
+  .phrase:not(:first-child) {
+    display: none;
+  }
+
+  .phrase {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .logo {
+    display: inline-block;
+    vertical-align: middle;
+    margin-inline-start: 0.35em;
   }
 }

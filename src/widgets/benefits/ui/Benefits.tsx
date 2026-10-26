@@ -16,6 +16,27 @@ type Props = {
   benefits: string[]
 }
 
+const isLetter = (char: string): boolean => /\p{L}/u.test(char)
+
+const expandToWord = (
+  title: string,
+  start: number,
+  end: number,
+): { start: number; end: number } => {
+  let wordStart = start
+  let wordEnd = end
+
+  while (wordStart > 0 && isLetter(title.charAt(wordStart - 1))) {
+    wordStart -= 1
+  }
+
+  while (wordEnd < title.length && isLetter(title.charAt(wordEnd))) {
+    wordEnd += 1
+  }
+
+  return { start: wordStart, end: wordEnd }
+}
+
 const renderTitle = (title: string, accent: string): ReactNode => {
   const start = title.toLowerCase().indexOf(accent.toLowerCase())
 
@@ -23,13 +44,13 @@ const renderTitle = (title: string, accent: string): ReactNode => {
     return title
   }
 
-  const end = start + accent.length
+  const range = expandToWord(title, start, start + accent.length)
 
   return (
     <>
-      {title.slice(0, start)}
-      <span className={styles.accent}>{title.slice(start, end)}</span>
-      {title.slice(end)}
+      {title.slice(0, range.start)}
+      <span className={styles.accent}>{title.slice(range.start, range.end)}</span>
+      {title.slice(range.end)}
     </>
   )
 }

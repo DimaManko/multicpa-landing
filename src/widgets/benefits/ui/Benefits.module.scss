@@ -2,9 +2,9 @@
   @include screen;
   display: flex;
   flex-direction: column;
-  height: auto;
-  min-height: 100svh;
+  height: 100svh;
   overflow: hidden;
+  padding-bottom: 46px;
 }
 
 .content {
@@ -18,6 +18,7 @@
   grid-template-rows: auto minmax(0, 1fr);
   column-gap: 40px;
   align-items: center;
+  overflow: hidden;
   padding-top: 40px;
   padding-bottom: 28px;
 }
@@ -37,7 +38,7 @@
   grid-column: 1;
   grid-row: 2;
   align-self: start;
-  margin-top: 79px;
+  margin-top: clamp(30px, calc(24.5svh - 141.5px), 79px);
   max-width: 746px;
 }
 
@@ -82,7 +83,7 @@
   grid-column: 2;
   grid-row: 2;
   align-self: start;
-  margin-top: 256px;
+  margin-top: clamp(100px, calc(78svh - 446px), 256px);
   width: var(--card-width);
   padding: 0;
   list-style: none;
@@ -107,9 +108,43 @@
   }
 }
 
+@media (max-width: $breakpoint-xl) {
+  .snake {
+    top: 340px;
+    left: 35%;
+    width: 285px;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .snake {
+    top: 340px;
+    left: 30%;
+    width: 264px;
+  }
+
+  .cards {
+    margin-top: clamp(100px, calc(78svh - 506px), 196px);
+  }
+}
+
+@media (max-width: 950px) {
+  .snake {
+    display: none;
+  }
+}
+
 @media (max-width: $breakpoint-md) {
+  // fluid: 768px → 393px (range 375px)
+  // clamp(val393, calc(slope * 100vw + intercept), val768)
+
   .screen {
-    padding: 24px 20px 32px;
+    height: auto;
+    min-height: 100svh;
+    padding:
+      clamp(30px, calc(2.67vw + 19.5px), 40px)
+      clamp(16px, calc(2.13vw + 7.6px), 24px)
+      clamp(32px, calc(4.27vw + 15.2px), 48px);
   }
 
   .content {
@@ -123,55 +158,41 @@
   .copy {
     order: 1;
     max-width: none;
+    margin-top: 0;
   }
 
   .title {
-    font-size: 36px;
-    line-height: 0.95;
+    font-size: clamp(32px, calc(4.27vw + 15.2px), 48px);
+    line-height: 0.9;
     letter-spacing: -0.04em;
   }
 
   .description {
     max-width: none;
-    margin-top: 24px;
-    font-weight: $font-weight-bold;
+    margin-top: clamp(16px, calc(2.13vw + 7.6px), 24px);
+    font-size: clamp(16px, calc(1.07vw + 11.8px), 20px);
+    font-weight: $font-weight-medium;
+    line-height: 1.25;
   }
 
   .marquee {
     order: 2;
+    margin-top: clamp(32px, calc(4.27vw + 15.2px), 48px);
   }
 
   .cards {
     order: 3;
-    gap: 16px;
+    gap: clamp(20px, calc(2.13vw + 11.6px), 28px);
     width: 100%;
+    margin-top: clamp(27px, calc(3.47vw + 13.4px), 40px);
+    align-self: auto;
   }
 
   .card {
     width: 100%;
     height: auto;
-    min-height: 112px;
-    padding: 20px;
+    min-height: clamp(100px, calc(206.5px - 13.87vw), 152px);
+    padding: clamp(16px, calc(2.13vw + 7.6px), 24px);
     font-size: $font-size-body;
-  }
-}
-
-@media (max-width: $breakpoint-xl) {
-  .snake {
-    left: 34%;
-    width: 285px;
-  }
-}
-
-@media (max-width: $breakpoint-lg) {
-  .snake {
-    left: 30%;
-    width: 264px;
-  }
-}
-
-@media (max-width: $breakpoint-md) {
-  .snake {
-    display: none;
   }
 }

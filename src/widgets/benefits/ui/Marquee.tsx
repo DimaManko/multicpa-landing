@@ -15,8 +15,8 @@ type GroupProps = {
 function PhraseGroup({ phrase, isHidden = false }: GroupProps) {
   return (
     <div className={styles.group} aria-hidden={isHidden || undefined}>
-      {PHRASE_IDS.map((id) => (
-        <span className={styles.phrase} key={id}>
+      {PHRASE_IDS.map((id, index) => (
+        <span className={styles.phrase} key={id} aria-hidden={index > 0 || isHidden || undefined}>
           {phrase}
           <span className={styles.logo} aria-hidden="true" />
         </span>

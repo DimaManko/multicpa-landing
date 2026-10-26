@@ -4,7 +4,7 @@
   flex-direction: column;
   height: 100svh;
   overflow: hidden;
-  padding-bottom: 46px;
+  padding-bottom: 60px;
 }
 
 .content {
@@ -25,6 +25,7 @@
 
 .label {
   position: relative;
+  top: 20px;
   z-index: 1;
   grid-column: 2;
   grid-row: 1;
@@ -66,8 +67,8 @@
 .snake {
   position: absolute;
   z-index: 0;
-  top: 40%;
-  left: 30%;
+  top: calc(40% + 24.6px);
+  left: calc(30% + 5px);
   width: clamp(240px, calc(100vw * 390 / 1440), 390px);
   height: auto;
   pointer-events: none;
@@ -99,6 +100,8 @@
   border-radius: 8px;
   background-color: $color-purple;
   @include font-card;
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
   opacity: 1;
 
   &:hover {
@@ -131,6 +134,10 @@
 @media (max-width: 950px) {
   .snake {
     display: none;
+  }
+
+  .cards {
+    margin-top: clamp(52px, calc(78svh - 554px), 148px);
   }
 }
 

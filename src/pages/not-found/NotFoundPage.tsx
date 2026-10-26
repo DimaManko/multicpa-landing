@@ -7,15 +7,14 @@ import styles from './not-found-page.module.scss'
 const NotFoundPage = () => {
   return (
     <main className={styles.page}>
-      <div className={styles.layer}>
-        <Background />
-      </div>
-      <div className={styles.layer}>
-        <NotFoundScreen />
-      </div>
-      <div className={styles.content}>
-        <Logo />
-      </div>
+      <Background>
+        <div className={styles.stack}>
+          <NotFoundScreen />
+          <div className={styles.content}>
+            <Logo />
+          </div>
+        </div>
+      </Background>
     </main>
   )
 }

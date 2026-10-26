@@ -1,18 +1,21 @@
 .page {
-  display: grid;
   height: 100%;
-  overflow: hidden;
 }
 
-.layer {
-  grid-area: 1 / 1;
-  min-height: 0;
-  min-width: 0;
+.stack {
+  position: absolute;
+  inset: 0;
+  display: grid;
+
+  > * {
+    grid-area: 1 / 1;
+    min-height: 0;
+    min-width: 0;
+  }
 }
 
 .content {
   @include container;
-  grid-area: 1 / 1;
   position: relative;
   z-index: 1;
   padding-top: 30px;

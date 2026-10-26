@@ -1,0 +1,51 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.logo {
+  position: absolute;
+  top: 30px;
+  left: $layout-padding-x;
+}
+
+.percent {
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  font-size: 80px;
+  line-height: 0.9;
+  letter-spacing: -1.74px;
+  text-transform: uppercase;
+  color: $color-white;
+}
+
+.bar {
+  width: $progress-width;
+  max-width: calc(100% - #{$layout-padding-x * 2});
+  height: $progress-height;
+  appearance: none;
+  border: 0;
+  border-radius: 100px;
+  overflow: hidden;
+  background-color: $color-white;
+
+  &::-webkit-progress-bar {
+    background-color: $color-white;
+  }
+
+  &::-webkit-progress-value {
+    border-radius: 100px;
+    background-color: $color-yellow;
+  }
+
+  &::-moz-progress-bar {
+    border-radius: 100px;
+    background-color: $color-yellow;
+  }
+}

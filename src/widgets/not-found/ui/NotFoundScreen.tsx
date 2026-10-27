@@ -22,7 +22,7 @@ export function NotFoundScreen() {
     const historyIndex = getHistoryIndex(window.history.state)
 
     if (historyIndex === null || historyIndex === 0) {
-      navigate(getHomePath())
+      navigate(getHomePath(), { replace: true })
       return
     }
 

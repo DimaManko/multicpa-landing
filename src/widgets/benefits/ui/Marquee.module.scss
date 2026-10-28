@@ -1,0 +1,134 @@
+.marquee {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: calc(100% + 116px);
+  height: 104px;
+  margin-left: -40px;
+  border-block: 3px solid $color-yellow;
+  transform: rotate(1deg);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  padding-right: 50px;
+}
+
+.phrase {
+  display: inline-flex;
+  align-items: center;
+  gap: 50px;
+  font-family: $font-family-base;
+  font-weight: $font-weight-light;
+  font-size: 70px;
+  line-height: 81px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: $color-yellow;
+}
+
+.logo {
+  display: block;
+  flex: none;
+  width: 60px;
+  aspect-ratio: 45 / 41.1625;
+  background-color: $color-yellow;
+  mask-image: url("@/shared/assets/icons/logo.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("@/shared/assets/icons/logo.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  user-select: none;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  // fluid: 768px → 393px (range 375px)
+  // padding-inline на .screen: clamp(16px, calc(2.13vw + 7.6px), 24px)
+  // marquee должен точно выходить за этот padding
+
+  .marquee {
+    display: block;
+    width: calc(100% + 2 * clamp(16px, calc(2.13vw + 7.6px), 24px));
+    height: auto;
+    margin-inline: clamp(-24px, calc(-2.13vw - 7.6px), -16px);
+    border-block-width: 1px;
+    padding-block: 10px;
+  }
+
+  .group {
+    gap: clamp(28px, calc(3.2vw + 15.4px), 40px);
+    padding-right: clamp(28px, calc(3.2vw + 15.4px), 40px);
+  }
+
+  .phrase {
+    gap: clamp(28px, calc(3.2vw + 15.4px), 40px);
+    font-weight: $font-weight-light;
+    font-size: clamp(35px, calc(4.53vw + 17.2px), 52px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+
+  .logo {
+    width: clamp(32px, calc(3.2vw + 19.4px), 44px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .group[aria-hidden='true'] {
+    display: none;
+  }
+
+  .group {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding-right: 0;
+  }
+
+  .phrase:not(:first-child) {
+    display: none;
+  }
+
+  .phrase {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .logo {
+    display: inline-block;
+    vertical-align: middle;
+    margin-inline-start: 0.35em;
+  }
+}

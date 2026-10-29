@@ -1,3 +1,4 @@
-import LandingPage from "./Landing";
+import LandingPage from './Landing'
 
-export default LandingPage;
+export { loader } from './model/loader'
+export default LandingPage

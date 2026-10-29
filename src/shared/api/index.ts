@@ -1,3 +1,8 @@
-export { getBenefits } from "./benefits";
-export { getMultiply } from "./multiply";
-export { getTasks } from "./tasks";
+export type { Benefits } from './benefits'
+export { getBenefits } from './benefits'
+export type { ContactFormData } from './form'
+export { useSendForm } from './form'
+export type { Multiply } from './multiply'
+export { getMultiply } from './multiply'
+export type { Tasks } from './tasks'
+export { getTasks } from './tasks'

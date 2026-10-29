@@ -15,6 +15,7 @@ const LandingPage = () => {
   return (
     <Background>
       <Preloader isLoading={isLoading} onFinish={() => setIsPreloaderDone(true)} />
+
       {isPreloaderDone && (
         <Suspense fallback={null}>
           <Await resolve={data} errorElement={<p>Failed to load data</p>}>

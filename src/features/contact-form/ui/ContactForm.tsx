@@ -9,7 +9,11 @@ import { contactFormSchema } from '../model/schema'
 
 import styles from './ContactForm.module.scss'
 
-const ContactForm = () => {
+type Props = {
+  onClose: () => void
+}
+
+const ContactForm = ({ onClose }: Props) => {
   const formId = useId()
   const { send, isSuccess } = useSendForm()
   const [hasCompletedRequest, setHasCompletedRequest] = useState(false)
@@ -36,6 +40,7 @@ const ContactForm = () => {
       await send(values)
     } catch {
       setError('root', {
+        type: 'server',
         message: 'Не удалось отправить заявку. Попробуйте ещё раз.',
       })
     } finally {
@@ -45,9 +50,14 @@ const ContactForm = () => {
 
   if (isSuccess) {
     return (
-      <div role="status">
-        <h2>WE HAVE RECEIVED YOUR APPLICATION!</h2>
-        <p>We will process your request and get in touch with you</p>
+      <div className={styles.success} role="status">
+        <h2 className={styles.successTitle}>WE HAVE RECEIVED YOUR APPLICATION!</h2>
+
+        <p className={styles.successText}>We will process your request and get in touch with you</p>
+
+        <button className={styles.submit} type="button" onClick={onClose}>
+          Done
+        </button>
       </div>
     )
   }
@@ -56,7 +66,12 @@ const ContactForm = () => {
     errors.root !== undefined || (hasCompletedRequest && !isSubmitting && !isSuccess)
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form
+      className={styles.form}
+      onSubmit={handleSubmit(onSubmit)}
+      aria-busy={isSubmitting}
+      noValidate
+    >
       <p className={styles.hint}>Fields with an asterisk (*) are mandatory</p>
 
       <fieldset className={styles.fields} disabled={isSubmitting}>
@@ -64,9 +79,10 @@ const ContactForm = () => {
           <label className={styles.label} htmlFor={`${formId}-name`}>
             Your Name
           </label>
+
           <input
-            className={styles.control}
             {...register('name')}
+            className={styles.control}
             id={`${formId}-name`}
             type="text"
             autoComplete="name"
@@ -78,9 +94,10 @@ const ContactForm = () => {
           <label className={styles.label} htmlFor={`${formId}-method`}>
             Contact Method *
           </label>
+
           <select
-            className={styles.control}
             {...register('method')}
+            className={styles.control}
             id={`${formId}-method`}
             defaultValue=""
             aria-required="true"
@@ -106,9 +123,10 @@ const ContactForm = () => {
           <label className={styles.label} htmlFor={`${formId}-contact`}>
             Your Contact *
           </label>
+
           <input
-            className={styles.control}
             {...register('contact')}
+            className={styles.control}
             id={`${formId}-contact`}
             type="text"
             placeholder="Your Contact"

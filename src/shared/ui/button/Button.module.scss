@@ -1,42 +1,3 @@
-
-
-// .button {
-//     @include font-button;
-
-//     height: $button-height;
-//     padding: 0 32px;
-//     white-space: nowrap;
-
-
-//     border: 0;
-//     background-color: transparent;
-//     background-image: url("@/shared/assets/icons/button-volume.svg");
-//     background-repeat: no-repeat;
-//     background-position: center;
-//     background-size: 100% 100%;
-
-//     // font-family: $font-family-base;
-//     // font-size: $font-size-button;
-//     // font-weight: $font-weight-medium;
-//     // letter-spacing: $font-tracking-button;
-//     text-transform: uppercase;
-  
-
-//     cursor: pointer;
-// }
-
-// .button:focus-visible {
-//     outline: 2px solid $color-purple;
-//     outline-offset: 4px;
-// }
-
-// .button:disabled {
-//     opacity: 0.5;
-//     cursor: not-allowed;
-// }
-
-
-
 .button {
   @include font-button;
 
@@ -46,6 +7,8 @@
   position: relative;
   display: inline-flex;
   box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
   height: $button-height;
   padding: 8px 10px 0 0;
 
@@ -63,7 +26,7 @@
   content: "";
   position: absolute;
   box-sizing: border-box;
-  border: 2px solid var(--button-ink);
+  border: 2.5px solid var(--button-ink);
   background-color: var(--button-fill);
   pointer-events: none;
 }
@@ -73,6 +36,7 @@
   left: 0;
   width: calc(100% - 10px);
   height: 8px;
+  border-bottom: 0;
 
   transform: skewX(-51.34deg);
   transform-origin: bottom left;
@@ -83,6 +47,7 @@
   right: 0;
   bottom: 0;
   width: 10px;
+  border-left: 0;
 
   transform: skewY(-38.66deg);
   transform-origin: top left;
@@ -92,14 +57,20 @@
   position: relative;
   z-index: 1;
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  min-width: 0;
   height: 100%;
   padding: 0 17px;
 
-  border: 2px solid var(--button-ink);
+  border: 2.5px solid var(--button-ink);
   background-color: var(--button-fill);
+}
+
+.label {
+  margin-right: -$font-tracking-button;
 }
 
 @media (hover: hover) {
@@ -121,4 +92,23 @@
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+@media (max-width: $breakpoint-md) {
+  .button {
+    height: auto;
+    min-height: 60px;
+    font-size: 18px;
+    white-space: normal;
+  }
+
+  .face {
+    height: auto;
+    min-height: 52px;
+    padding: 12px 20px;
+  }
+
+  .label {
+    overflow-wrap: anywhere;
+  }
 }

@@ -12,8 +12,9 @@ type Props = {
 const Button = ({ children, onClick, type = 'button', disabled = false }: Props) => {
   return (
     <button className={styles.button} onClick={onClick} type={type} disabled={disabled}>
-      {/* {children} */}
-      <span className={styles.face}> {children} </span>
+      <span className={styles.face}>
+        <span className={styles.label}>{children}</span>
+      </span>
     </button>
   )
 }

@@ -1,17 +1,28 @@
-import { useLoaderData } from 'react-router'
-import { Button } from '@/shared/ui/button'
+import { Suspense, useState } from 'react'
+import { Await, useLoaderData } from 'react-router'
 
-import type { Locale } from '@/shared/config/locales'
+import { Background } from '@/widgets/background'
+import { Preloader } from '@/widgets/preloader'
 
+import type { loader } from './model/loader'
+import { useIsPending } from './model/useIsPending'
 
 const LandingPage = () => {
-  const { lang } = useLoaderData() as { lang: Locale }
+  const { lang, data } = useLoaderData<typeof loader>()
+  const isLoading = useIsPending(data)
+  const [isPreloaderDone, setIsPreloaderDone] = useState(false)
+
   return (
-		<>
-			<h1>Landing: {lang}</h1>
-			<Button>OOPS, TAKE ME BACK</Button>
-		</>
-      
+    <Background>
+      <Preloader isLoading={isLoading} onFinish={() => setIsPreloaderDone(true)} />
+      {isPreloaderDone && (
+        <Suspense fallback={null}>
+          <Await resolve={data} errorElement={<p>Failed to load data</p>}>
+            {() => <h1>Landing: {lang}</h1>}
+          </Await>
+        </Suspense>
+      )}
+    </Background>
   )
 }
 

@@ -1,0 +1,45 @@
+.list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.icons {
+  gap: 30px;
+
+  .link {
+    @include social-link;
+
+    color: $color-white;
+  }
+
+  .icon {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.text {
+  gap: 20px;
+
+  .link {
+    padding: 10px;
+    font-family: $font-family-base;
+    font-weight: $font-weight-bold;
+    font-size: 20px;
+    line-height: $font-line-single;
+    text-transform: uppercase;
+    color: $color-yellow;
+  }
+}
+
+.link {
+  transition: opacity 0.2s ease-out;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.7;
+  }
+}

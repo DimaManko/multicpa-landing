@@ -1,0 +1,83 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: $button-height-choice;
+  padding: 16px 32px;
+
+  border: 2px solid $color-yellow;
+  border-radius: 999px;
+
+  background-color: transparent;
+  color: $color-yellow;
+
+  font-family: $font-family-base;
+  font-size: $font-size-button;
+  font-weight: $font-weight-bold;
+  line-height: $font-line-base;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.arrow {
+  flex-shrink: 0;
+}
+
+.active {
+  border-color: $color-ink;
+  background-color: $color-yellow;
+  color: $color-ink;
+}
+
+@media (hover: hover) {
+  .button:not(:disabled):hover {
+    border-color: $color-ink;
+    background-color: $color-yellow;
+    color: $color-ink;
+  }
+}
+
+.button:focus-visible {
+  outline: 3px solid $color-white;
+  outline-offset: 4px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: $breakpoint-md) {
+  .button {
+    gap: 16px;
+    min-height: 60px;
+    padding: 12px 24px;
+    font-size: 18px;
+  }
+
+  .arrow {
+    width: 30px;
+    height: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

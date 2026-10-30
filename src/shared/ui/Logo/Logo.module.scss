@@ -1,0 +1,9 @@
+.logo {
+  width: 56.85px;
+  height: 52px;
+  color: $color-purple;
+
+  :is(path, ellipse) {
+    fill: currentColor;
+  }
+}

@@ -1,0 +1,26 @@
+{
+    "header": {
+        "team": "Team",
+        "benefits": "Benefits",
+        "joinUs": "Join Us"
+    },
+    "cta": {
+        "getInTouch": "Get in Touch",
+        "joinTheTeam": "Join the team",
+        "partnerUp": "Partner up",
+        "launchNow": "Launch now"
+    },
+    "form": {
+        "requiredHint": "Fields with an asterisk (*) are mandatory",
+        "namePlaceholder": "Your Name",
+        "contactMethodPlaceholder": "Contact Method",
+        "contactPlaceholder": "Your Contact",
+        "submit": "Submit"
+    },
+    "modal": {
+        "successTitle": "We have received your application!",
+        "successText": "We will process your request and get in touch with you",
+        "done": "Done",
+        "close": "Close"
+    }
+}

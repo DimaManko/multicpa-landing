@@ -18,7 +18,7 @@ const NotFoundPage = () => {
           <NotFoundScreen />
           <div className={styles.content}>
             <Link to={getHomePath()} aria-label={t('header.home')} className={styles.logoLink}>
-              <Logo className={styles.logo}/>
+              <Logo className={styles.logo} />
             </Link>
           </div>
         </div>

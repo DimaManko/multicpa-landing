@@ -1,29 +1,19 @@
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 
 import snake from '@/shared/assets/img/404-snake.png'
 import { getHomePath } from '@/shared/config/home-path'
+import { Button } from '@/shared/ui/button'
 
 import styles from './not-found-screen.module.scss'
-
-function getHistoryIndex(state: unknown): number | null {
-  if (typeof state !== 'object' || state === null || !('idx' in state)) {
-    return null
-  }
-
-  const index = state.idx
-
-  return typeof index === 'number' ? index : null
-}
 
 export function NotFoundScreen() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleBack = () => {
-    const historyIndex = getHistoryIndex(window.history.state)
-
-    if (historyIndex === null || historyIndex === 0) {
+    if (location.key === 'default') {
       navigate(getHomePath(), { replace: true })
       return
     }
@@ -35,10 +25,10 @@ export function NotFoundScreen() {
     <section className={styles.screen}>
       <div className={styles.content}>
         <h1 className={styles.title}>404</h1>
-        <img className={styles.snake} src={snake} alt="Snake" draggable={false} />
-        <button className={styles.button} type="button" onClick={handleBack}>
-          {t('cta.takeMeBack')}
-        </button>
+        <img className={styles.snake} src={snake} alt="" draggable={false} />
+        <div className={styles.action}>
+          <Button onClick={handleBack}>{t('cta.takeMeBack')}</Button>
+        </div>
       </div>
     </section>
   )

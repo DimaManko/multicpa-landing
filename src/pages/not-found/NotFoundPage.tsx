@@ -1,6 +1,6 @@
 import { Background } from '@/widgets/background'
 import { NotFoundScreen } from '@/widgets/not-found'
-import { Logo } from '@/shared/ui/logo'
+import { Logo } from '@/shared/ui/Logo'
 
 import styles from './not-found-page.module.scss'
 

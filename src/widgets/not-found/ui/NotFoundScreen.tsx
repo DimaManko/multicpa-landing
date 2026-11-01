@@ -4,6 +4,7 @@ import snake from '@/shared/assets/img/404-snake.png'
 import { getHomePath } from '@/shared/config/home-path'
 
 import styles from './not-found-screen.module.scss'
+import { useTranslation } from 'react-i18next'
 
 function getHistoryIndex(state: unknown): number | null {
   if (typeof state !== 'object' || state === null || !('idx' in state)) {
@@ -16,6 +17,7 @@ function getHistoryIndex(state: unknown): number | null {
 }
 
 export function NotFoundScreen() {
+  const {t} = useTranslation()
   const navigate = useNavigate()
 
   const handleBack = () => {
@@ -35,7 +37,7 @@ export function NotFoundScreen() {
         <h1 className={styles.title}>404</h1>
         <img className={styles.snake} src={snake} alt="Snake" draggable={false} />
         <button className={styles.button} type="button" onClick={handleBack}>
-          Oops, take me back
+          {t('cta.takeMeBack')}
         </button>
       </div>
     </section>

@@ -8,7 +8,8 @@
         "getInTouch": "Get in Touch",
         "joinTheTeam": "Join the team",
         "partnerUp": "Partner up",
-        "launchNow": "Launch now"
+        "launchNow": "Launch now",
+        "takeMeBack": "Oops, take me back"
     },
     "form": {
         "requiredHint": "Fields with an asterisk (*) are mandatory",
@@ -22,5 +23,8 @@
         "successText": "We will process your request and get in touch with you",
         "done": "Done",
         "close": "Close"
+    },
+    "benefits": {
+        "accent": "guarant"
     }
 }

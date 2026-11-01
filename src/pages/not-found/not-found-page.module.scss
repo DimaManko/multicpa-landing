@@ -21,3 +21,14 @@
   padding-top: 30px;
   pointer-events: none;
 }
+
+.logoLink {
+  pointer-events: auto;
+  display: inline-flex;
+}
+
+.logo {
+  width: 45px;
+  height: 41px;
+  color: $color-white;
+}

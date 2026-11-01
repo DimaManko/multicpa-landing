@@ -28,7 +28,8 @@ src/
 │
 └── shared/
     ├── api/                # обёртка над fetch: benefits, tasks, multiply, POST /form
-    ├── i18n/               # словари подписей, которых нет в API
+    ├── config/             # LOCALES, resolveLocale, getHomePath, переменные окружения
+    ├── i18n/               # словари статики и конфиг i18next
     ├── ui/                 # кнопки и логотип
     └── assets/             # иконки
 ```
@@ -74,7 +75,8 @@ flowchart TD
   subgraph sharedLayer ["shared · общий низ, не знает верхние слои"]
     direction LR
     api["<b>api</b><br/>fetch + x-api-key<br/>benefits, tasks, multiply, form"]
-    i18n["<b>i18n</b><br/>словари подписей"]
+    config["<b>config</b><br/>LOCALES, resolveLocale"]
+    i18n["<b>i18n</b><br/>словари статики"]
     ui["<b>ui</b><br/>кнопки и логотип"]
     assets["<b>assets</b><br/>иконки"]
   end
@@ -94,6 +96,8 @@ flowchart TD
   form --> api
   form --> i18n
   locale --> i18n
+  locale --> config
+  i18n --> config
   form --> ui
   header --> assets
 
@@ -107,7 +111,7 @@ flowchart TD
   class landing,notFound pageNode
   class header,hero,tasks,benefits,multiply,background,preloader,footer,notFoundScreen widgetNode
   class snap,form,locale featureNode
-  class api,i18n,ui,assets sharedNode
+  class api,config,i18n,ui,assets sharedNode
 
   style appLayer fill:#F7F2FF,stroke:#874FFF
   style pagesLayer fill:#F2F9FF,stroke:#3DADFF
@@ -122,6 +126,8 @@ flowchart TD
 | `pages`    | Собрать экраны в одну страницу      | Лендинг, 404                           |
 | `widgets`  | Показать то, что видит пользователь | 4 экрана, шапка, фон, прелоадер, футер, экран 404 |
 | `features` | Обработать действие пользователя    | Перелистывание, форма, смена языка            |
-| `shared`   | Дать общее всем слоям выше          | Запросы, словарь, кнопки, логотип, иконки     |
+| `shared`   | Дать общее всем слоям выше          | Запросы, языки, словари, кнопки, логотип, иконки |
 
 Языки не отдельные страницы: тот же лендинг открывается на `/` и `/ru`. Номер экрана в адрес не входит, его держит `snap-scroll` и читает якорь, например `#join`.
+
+Как выбирается язык и что лежит в словарях — в разделе «Интернационализация» в [README.md](../README.md).

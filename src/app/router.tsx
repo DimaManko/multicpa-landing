@@ -13,6 +13,6 @@ export const router = createBrowserRouter([
   {
     path: '*',
     element: <NotFoundPage />,
-    loader: notFoundLoader
+    loader: notFoundLoader,
   },
 ])

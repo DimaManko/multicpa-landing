@@ -1,10 +1,10 @@
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
 import snake from '@/shared/assets/img/404-snake.png'
 import { getHomePath } from '@/shared/config/home-path'
 
 import styles from './not-found-screen.module.scss'
-import { useTranslation } from 'react-i18next'
 
 function getHistoryIndex(state: unknown): number | null {
   if (typeof state !== 'object' || state === null || !('idx' in state)) {
@@ -17,7 +17,7 @@ function getHistoryIndex(state: unknown): number | null {
 }
 
 export function NotFoundScreen() {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   const handleBack = () => {

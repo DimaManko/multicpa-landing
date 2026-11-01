@@ -1,0 +1,18 @@
+.root {
+  display: flex;
+  gap: 16px;
+}
+
+.link {
+  color: $color-white;
+  font-family: $font-family-base;
+  font-size: $font-size-menu;
+  font-weight: $font-weight-bold;
+  line-height: $font-line-single;
+  text-decoration: none;
+}
+
+.active {
+  color: $color-yellow;
+  text-decoration: underline;
+}

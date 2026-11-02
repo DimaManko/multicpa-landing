@@ -1,5 +1,5 @@
 import type { Multiply } from '@/shared/api'
-import arrowDown from '@/shared/assets/icons/arrow-down.svg'
+import ArrowDown from '@/shared/assets/icons/arrow-down.svg?react'
 import { Button } from '@/shared/ui/button'
 
 import styles from './MultiplyCard.module.scss'
@@ -16,7 +16,7 @@ function MultiplyCard({ ctaLabel, onCtaClick, steps }: Props) {
       {Object.entries(steps).map(([key, value]) => (
         <div key={key} className={styles.stepWrapper}>
           <p className={styles.stepText}>{value}</p>
-          <img className={styles.stepArrow} src={arrowDown} alt="" />
+          <ArrowDown className={styles.stepArrow} />
         </div>
       ))}
       <Button className={styles.cta} onClick={onCtaClick}>

@@ -1,3 +1,4 @@
+import { ScrollTopButton } from '@/shared/ui/ScrollTopButton'
 import SocialLinks from '@/shared/ui/SocialLinks'
 
 import style from './Footer.module.scss'
@@ -11,9 +12,7 @@ function Footer({ onScrollTop }: Props) {
     <div className={style.footer}>
       <SocialLinks variant="text" />
 
-      <button type="button" aria-label="scroll to top" onClick={onScrollTop}>
-        scroll to top ↑
-      </button>
+      <ScrollTopButton onClick={onScrollTop} />
     </div>
   )
 }

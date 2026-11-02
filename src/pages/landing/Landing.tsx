@@ -2,8 +2,8 @@ import { Suspense, useState } from 'react'
 import { Await, useLoaderData } from 'react-router'
 
 import { Background } from '@/widgets/background'
-import Footer from '@/widgets/footer'
-import Multiply from '@/widgets/multiply'
+import { Footer } from '@/widgets/footer'
+import { Multiply } from '@/widgets/multiply'
 import { Preloader } from '@/widgets/preloader'
 
 import type { loader } from './model/loader'

@@ -1,3 +1,1 @@
-import Multiply from './Multiply'
-
-export default Multiply
+export { default as Multiply } from './Multiply'

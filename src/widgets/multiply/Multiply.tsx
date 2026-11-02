@@ -3,8 +3,8 @@ import { useState } from 'react'
 
 import type { Multiply as MultiplyData } from '@/shared/api'
 import snake from '@/shared/assets/img/multiply-snake.png'
+import { InfoButton } from '@/shared/ui/info-button'
 
-import InfoButton from '../../shared/ui/info-button/InfoButton'
 import MultiplyCard from './ui/MultiplyCard'
 
 import styles from './Multiply.module.scss'

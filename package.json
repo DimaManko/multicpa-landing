@@ -20,12 +20,12 @@
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
     "gsap": "^3.15.0",
-    "i18next": "^26.4.4",
+    "i18next": "^26.5.12",
     "modern-normalize": "^3.0.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-hook-form": "^7.90.0",
-    "react-i18next": "^17.0.16",
+    "react-i18next": "^17.1.9",
     "react-router": "^7.18.4",
     "sass": "^1.105.1",
     "zod": "^4.6.7"

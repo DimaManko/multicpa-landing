@@ -2,7 +2,7 @@ import type { AnimationEvent, ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-import Logo from '@/shared/ui/Logo'
+import { Logo } from '@/shared/ui/logo'
 
 import styles from './Modal.module.scss'
 

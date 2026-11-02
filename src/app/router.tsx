@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router'
 
 import LandingPage, { loader } from '@/pages/landing'
-import NotFoundPage from '@/pages/not-found'
+import NotFoundPage, { loader as notFoundLoader } from '@/pages/not-found'
 
 export const router = createBrowserRouter([
   {
@@ -13,5 +13,6 @@ export const router = createBrowserRouter([
   {
     path: '*',
     element: <NotFoundPage />,
+    loader: notFoundLoader,
   },
 ])

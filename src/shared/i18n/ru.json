@@ -1,0 +1,32 @@
+{
+  "header": {
+    "team": "Команда",
+    "benefits": "Преимущества",
+    "joinUs": "С нами",
+    "language": "Язык",
+    "home": "На главную"
+  },
+  "cta": {
+    "getInTouch": "Получить профит",
+    "joinTheTeam": "В команду",
+    "partnerUp": "Стать партнёром",
+    "launchNow": "Запустить проект",
+    "takeMeBack": "Упс, верни меня назад"
+  },
+  "form": {
+    "requiredHint": "Поля со звёздочкой (*) обязательны",
+    "namePlaceholder": "Ваше имя",
+    "contactMethodPlaceholder": "Способ связи",
+    "contactPlaceholder": "Ваш контакт",
+    "submit": "Отправить"
+  },
+  "modal": {
+    "successTitle": "Мы получили вашу заявку!",
+    "successText": "Мы обработаем ваш запрос и свяжемся с вами",
+    "done": "Готово",
+    "close": "Закрыть"
+  },
+  "benefits": {
+    "accent": "гаранти"
+  }
+}

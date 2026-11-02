@@ -7,6 +7,15 @@ body,
   height: 100%;
 }
 
+@media (max-width: $breakpoint-md) {
+  html,
+  body,
+  #root {
+    height: auto;
+    min-height: 100%;
+  }
+}
+
 body {
   color: $color-white;
   font-family: $font-family-base;

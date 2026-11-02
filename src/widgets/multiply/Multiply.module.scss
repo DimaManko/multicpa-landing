@@ -1,0 +1,89 @@
+.screen {
+  @include screen;
+}
+
+.container {
+  @include container;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 56px;
+  padding-bottom: 6px;
+}
+
+.title {
+  @include font-section;
+
+  margin: 0;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 563px 757px;
+  justify-content: space-between;
+  flex: 1;
+  gap: 18px;
+  margin-top: 60px;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tab {
+  height: $button-height-choice;
+  padding-inline: 57px;
+}
+
+[data-index = 'tab-0']{
+  width: 524px;
+}
+
+[data-index = 'tab-1']{
+  width: 486px;
+}
+
+[data-index = 'tab-2']{
+  width: 435px;
+}
+
+.snake {
+  position: absolute;
+  bottom: 0;
+  left: calc($layout-padding-x / 3) ;
+  pointer-events: none;
+
+  img {
+    display: block;
+    //width: 613px;
+    max-width: 631px;
+    height: auto;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .screen {
+    height: auto;
+    min-height: $screen-height;
+    overflow: visible;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .snake {
+    display: none;
+  }
+}

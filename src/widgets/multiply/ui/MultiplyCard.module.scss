@@ -1,0 +1,51 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  box-sizing: border-box;
+  width: 757px;
+  height: 615px;
+  padding: 0 98px;
+  text-align: center;
+  background-color: $color-purple;
+}
+
+.step{
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &Text {
+    @include font-body;
+
+    margin: 0;
+    color: $color-white;
+  }
+}
+
+
+
+.stepArrow {
+  width: 24px;
+  height: auto;
+  margin-bottom: 16px;
+  color: $color-dark;
+}
+
+.cta {
+  width: 330px;
+  height: $button-height;
+}
+
+@media (max-width: $breakpoint-md) {
+  .card {
+    width: 100%;
+    height: auto;
+    padding: 24px 16px;
+  }
+}

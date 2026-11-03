@@ -1,16 +1,15 @@
-import { Link } from 'react-router'
-
 import LogoIcon from '@/shared/assets/icons/logo.svg?react'
-import { getHomePath } from '@/shared/config/home-path'
 
 import styles from './Logo.module.scss'
 
-function Logo() {
-  return (
-    <Link className={styles.link} to={getHomePath()} aria-label="Home">
-      <LogoIcon className={styles.image} aria-hidden="true" />
-    </Link>
-  )
+type Props = {
+  className?: string
+}
+
+function Logo({ className }: Props) {
+  const classNames = className ? `${styles.logo} ${className}` : styles.logo
+
+  return <LogoIcon className={classNames} aria-hidden="true" />
 }
 
 export default Logo

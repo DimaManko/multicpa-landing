@@ -2,7 +2,7 @@ import type { AnimationEvent, ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-import LogoIcon from '@/shared/assets/icons/logo.svg?react'
+import { Logo } from '@/shared/ui/logo'
 
 import styles from './Modal.module.scss'
 
@@ -119,7 +119,7 @@ function Modal({ isOpen, onClose, labelledBy, closeLabel, children }: Props) {
         tabIndex={-1}
         className={styles.modal}
       >
-        <LogoIcon className={styles.logo} aria-hidden="true" />
+        <Logo className={styles.logo} />
         {children}
         <button type="button" className={styles.close} aria-label={closeLabel} onClick={onClose}>
           <span aria-hidden="true">X</span>

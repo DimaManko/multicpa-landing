@@ -5,11 +5,12 @@
   justify-content: center;
   gap: 16px;
   box-sizing: border-box;
-  width: 757px;
-  height: 615px;
-  padding: 0 98px;
+  flex: 0 1 615px;
+  width: 100%;
+  padding: 20px clamp(20px, calc(11.6vw - 69px), 98px);
   text-align: center;
-  background-color: $color-purple;
+  border-radius: 12px;
+  background-image: linear-gradient(131.28deg, #a30ee9 5.95%, #8a00cc 98.41%);
 }
 
 .step{
@@ -33,7 +34,6 @@
 .stepArrow {
   width: 24px;
   height: auto;
-  margin-bottom: 16px;
   color: $color-dark;
 }
 
@@ -44,8 +44,33 @@
 
 @media (max-width: $breakpoint-md) {
   .card {
+    flex: none;
+    gap: 12px;
     width: 100%;
     height: auto;
-    padding: 24px 16px;
+    min-height: 470px;
+    padding: 20px;
+    background-image: linear-gradient(118.78deg, #a30ee9 5.95%, #8a00cc 98.41%);
+  }
+
+  .stepWrapper {
+    gap: 12px;
+  }
+
+  .stepText {
+    font-size: 16px;
+    line-height: 1.25;
+  }
+
+  .stepArrow {
+    width: auto;
+    height: 30px;
+  }
+
+  .cta {
+    width: 250px;
+    height: 60px;
+    min-height: 60px;
+    white-space: nowrap;
   }
 }

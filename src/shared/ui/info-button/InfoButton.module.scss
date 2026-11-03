@@ -2,21 +2,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: clamp(12px, calc(4.17vw - 20px), 40px);
 
   box-sizing: border-box;
   max-width: 100%;
   min-height: $button-height-choice;
-  padding: 16px 32px;
+  padding: 16px clamp(20px, calc(5.07vw - 19px), 54px);
 
-  border: 2px solid $color-yellow;
+  border: 3px solid $color-yellow;
   border-radius: 999px;
 
   background-color: transparent;
   color: $color-yellow;
 
   font-family: $font-family-base;
-  font-size: $font-size-button;
+  font-size: clamp(16px, calc(2.4vw - 2.5px), 32px);
   font-weight: $font-weight-bold;
   line-height: $font-line-base;
   text-align: left;
@@ -36,6 +36,8 @@
 
 .arrow {
   flex-shrink: 0;
+  width: clamp(26px, calc(3.58vw - 1.5px), 50px);
+  height: auto;
 }
 
 .active {
@@ -64,10 +66,11 @@
 
 @media (max-width: $breakpoint-md) {
   .button {
-    gap: 16px;
+    gap: 12px;
     min-height: 60px;
-    padding: 12px 24px;
-    font-size: 18px;
+    padding: 16px 34px;
+    border-width: 2px;
+    font-size: 20px;
   }
 
   .arrow {

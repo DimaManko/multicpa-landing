@@ -21,9 +21,10 @@
 
 .content {
   display: grid;
-  grid-template-columns: 563px 757px;
-  justify-content: space-between;
+  grid-template-columns: minmax(0, 563fr) minmax(0, 757fr);
+  grid-template-rows: minmax(0, 1fr);
   flex: 1;
+  min-height: 0;
   gap: 18px;
   margin-top: 60px;
 }
@@ -46,28 +47,17 @@
   padding-inline: 57px;
 }
 
-[data-index = 'tab-0']{
-  width: 524px;
-}
-
-[data-index = 'tab-1']{
-  width: 486px;
-}
-
-[data-index = 'tab-2']{
-  width: 435px;
-}
-
 .snake {
   position: absolute;
   bottom: 0;
   left: calc($layout-padding-x / 3) ;
+  width: min(43.75vw, 630px);
   pointer-events: none;
 
   img {
     display: block;
     //width: 613px;
-    max-width: 631px;
+    width: 100%;
     height: auto;
   }
 }
@@ -79,8 +69,28 @@
     overflow: visible;
   }
 
+  .container {
+    padding: calc($header-height-mobile + 40px) 16px 20px;
+  }
+
+  .title {
+    order: 1;
+    margin-top: 31px;
+    font-size: 20px;
+    text-align: center;
+  }
+
   .content {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    flex: none;
+    gap: 20px;
+    margin-top: 0;
+  }
+
+  .tabs {
+    align-items: center;
+    gap: 12px;
   }
 
   .snake {

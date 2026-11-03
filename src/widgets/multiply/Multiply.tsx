@@ -40,7 +40,6 @@ function Multiply({ items, onCtaClick, footer, ref }: Props) {
                   key={title}
                   isActive={index === activeIndex}
                   onClick={() => setActiveIndex(index)}
-                  data-index={`tab-${index}`}
                 >
                   {transformedTitle}
                 </InfoButton>

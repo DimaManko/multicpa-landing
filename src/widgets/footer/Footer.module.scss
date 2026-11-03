@@ -1,8 +1,16 @@
 .footer {
   width: 100%;
-  height: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
 
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
+}
+
+@media (max-width: $breakpoint-md) {
+	.footer {
+		display: none;
+	}
 }

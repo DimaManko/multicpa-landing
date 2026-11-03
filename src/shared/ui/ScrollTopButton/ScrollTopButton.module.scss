@@ -14,6 +14,7 @@
 	font-size: 20px;
 	line-height: $font-line-single;
 	text-transform: uppercase;
+	white-space: nowrap;
 	color: $color-yellow;
 	transition: color 0.2s ease-out;
 }

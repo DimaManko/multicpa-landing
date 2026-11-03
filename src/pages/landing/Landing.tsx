@@ -24,13 +24,13 @@ const LandingPage = () => {
             {([, benefits, multiply]) => {
               return (
                 <>
+                  <Multiply items={multiply} footer={<Footer />} />
                   <Benefits
                     locale={lang}
                     title={benefits.title}
                     description={benefits.description}
                     benefits={benefits.benefits}
                   />
-                  <Multiply items={multiply} footer={<Footer />} />
                 </>
               )
             }}

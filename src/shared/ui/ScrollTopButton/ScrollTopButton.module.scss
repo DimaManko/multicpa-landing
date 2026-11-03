@@ -6,7 +6,7 @@
 
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: 15px;
 
 	padding: 10px;
 	font-family: $font-family-base;
@@ -15,4 +15,11 @@
 	line-height: $font-line-single;
 	text-transform: uppercase;
 	color: $color-yellow;
+	transition: color 0.2s ease-out;
+}
+
+@media (hover: hover) {
+	.scrollButton:hover {
+		color: $color-white;
+	}
 }

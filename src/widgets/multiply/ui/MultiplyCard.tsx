@@ -5,14 +5,16 @@ import { Button } from '@/shared/ui/button'
 import styles from './MultiplyCard.module.scss'
 
 type Props = {
+  id: string
+  labelledBy: string
   ctaLabel: string
   onCtaClick?: () => void
   steps: Multiply[number]['steps']
 }
 
-function MultiplyCard({ ctaLabel, onCtaClick, steps }: Props) {
+function MultiplyCard({ id, labelledBy, ctaLabel, onCtaClick, steps }: Props) {
   return (
-    <div className={styles.card} role="tabpanel">
+    <div className={styles.card} id={id} role="tabpanel" aria-labelledby={labelledBy}>
       {Object.entries(steps).map(([key, value]) => (
         <div key={key} className={styles.stepWrapper}>
           <p className={styles.stepText}>{value}</p>

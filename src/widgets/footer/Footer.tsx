@@ -9,11 +9,12 @@ type Props = {
 
 function Footer({ onScrollTop }: Props) {
   return (
-    <div className={style.footer}>
-      <SocialLinks variant="text" />
+    <footer className={style.footer}>
+      <SocialLinks variant="text" className={style.textLinks} />
+      <SocialLinks variant="icons" className={style.iconLinks} />
 
       <ScrollTopButton onClick={onScrollTop} />
-    </div>
+    </footer>
   )
 }
 

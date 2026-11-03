@@ -1,5 +1,5 @@
-import type { ReactNode, Ref } from 'react'
-import { useState } from 'react'
+import type { KeyboardEvent, ReactNode, Ref } from 'react'
+import { useId, useState } from 'react'
 
 import type { Multiply as MultiplyData } from '@/shared/api'
 import snake from '@/shared/assets/img/multiply-snake.png'
@@ -8,8 +8,6 @@ import { InfoButton } from '@/shared/ui/info-button'
 import MultiplyCard from './ui/MultiplyCard'
 
 import styles from './Multiply.module.scss'
-
-// type MultiplyItem = Multiply[number]
 
 type Props = {
   items: MultiplyData
@@ -20,8 +18,38 @@ type Props = {
 
 const CTA_LABELS = ['Join the team', 'Partner up', 'Launch now']
 
+const getNextTabIndex = (key: string, current: number, last: number) => {
+  switch (key) {
+    case 'ArrowDown':
+    case 'ArrowRight':
+      return current === last ? 0 : current + 1
+    case 'ArrowUp':
+    case 'ArrowLeft':
+      return current === 0 ? last : current - 1
+    case 'Home':
+      return 0
+    case 'End':
+      return last
+    default:
+      return null
+  }
+}
+
 function Multiply({ items, onCtaClick, footer, ref }: Props) {
   const [activeIndex, setActiveIndex] = useState(0)
+  const baseId = useId()
+  const panelId = `${baseId}-panel`
+  const getTabId = (index: number) => `${baseId}-tab-${index}`
+
+  const handleTabsKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const nextIndex = getNextTabIndex(event.key, activeIndex, items.length - 1)
+
+    if (nextIndex === null) return
+
+    event.preventDefault()
+    setActiveIndex(nextIndex)
+    document.getElementById(getTabId(nextIndex))?.focus()
+  }
   const active = items[activeIndex]
 
   return (
@@ -29,7 +57,13 @@ function Multiply({ items, onCtaClick, footer, ref }: Props) {
       <div className={styles.container}>
         <h2 className={styles.title}>Multiply with us</h2>
         <div className={styles.content}>
-          <div className={styles.tabs} role="tablist">
+          <div
+            className={styles.tabs}
+            role="tablist"
+            aria-label="Multiply with us"
+            aria-orientation="vertical"
+            onKeyDown={handleTabsKeyDown}
+          >
             {items.map(({ title }, index) => {
               const transformedTitle = title
                 .replace(/_/g, ' ')
@@ -38,6 +72,8 @@ function Multiply({ items, onCtaClick, footer, ref }: Props) {
               return (
                 <InfoButton
                   key={title}
+                  id={getTabId(index)}
+                  controls={panelId}
                   isActive={index === activeIndex}
                   onClick={() => setActiveIndex(index)}
                 >
@@ -49,6 +85,8 @@ function Multiply({ items, onCtaClick, footer, ref }: Props) {
           <div className={styles.aside}>
             {active && (
               <MultiplyCard
+                id={panelId}
+                labelledBy={getTabId(activeIndex)}
                 steps={active.steps}
                 ctaLabel={CTA_LABELS[activeIndex]}
                 onCtaClick={onCtaClick}

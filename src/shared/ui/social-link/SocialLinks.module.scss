@@ -12,7 +12,7 @@
   .link {
     @include social-link;
 
-    color: $color-white;
+    color: var(--social-link-color, #{$color-white});
   }
 
   .icon {

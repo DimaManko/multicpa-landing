@@ -1,0 +1,26 @@
+.scrollButton {
+	background: none;
+	border: none;
+	text-decoration: underline;
+	cursor: pointer;
+
+	display: flex;
+	align-items: center;
+	gap: 15px;
+
+	padding: 10px;
+	font-family: $font-family-base;
+	font-weight: $font-weight-bold;
+	font-size: 20px;
+	line-height: $font-line-single;
+	text-transform: uppercase;
+	white-space: nowrap;
+	color: $color-yellow;
+	transition: color 0.2s ease-out;
+}
+
+@media (hover: hover) {
+	.scrollButton:hover {
+		color: $color-white;
+	}
+}

@@ -1,0 +1,76 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  box-sizing: border-box;
+  flex: 0 1 615px;
+  width: 100%;
+  padding: 20px clamp(20px, calc(11.6vw - 69px), 98px);
+  text-align: center;
+  border-radius: 12px;
+  background-image: linear-gradient(131.28deg, #a30ee9 5.95%, #8a00cc 98.41%);
+}
+
+.step{
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &Text {
+    @include font-body;
+
+    margin: 0;
+    color: $color-white;
+  }
+}
+
+
+
+.stepArrow {
+  width: 24px;
+  height: auto;
+  color: $color-dark;
+}
+
+.cta {
+  width: 330px;
+  height: $button-height;
+}
+
+@media (max-width: $breakpoint-md) {
+  .card {
+    flex: none;
+    gap: 12px;
+    width: 100%;
+    height: auto;
+    min-height: 470px;
+    padding: 20px;
+    background-image: linear-gradient(118.78deg, #a30ee9 5.95%, #8a00cc 98.41%);
+  }
+
+  .stepWrapper {
+    gap: 12px;
+  }
+
+  .stepText {
+    font-size: 16px;
+    line-height: 1.25;
+  }
+
+  .stepArrow {
+    width: auto;
+    height: 30px;
+  }
+
+  .cta {
+    width: 250px;
+    height: 60px;
+    min-height: 60px;
+    white-space: nowrap;
+  }
+}

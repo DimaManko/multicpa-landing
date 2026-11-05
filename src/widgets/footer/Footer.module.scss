@@ -1,0 +1,36 @@
+.footer {
+  width: 100%;
+  min-height: 50px;
+  flex-shrink: 0;
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.iconLinks {
+	display: none;
+}
+
+@media (max-width: $breakpoint-lg) {
+	.footer{
+		justify-content: space-around;
+	}
+
+	.textLinks {
+		display: none;
+	}
+
+	.iconLinks {
+		--social-link-color: #{$color-yellow};
+
+		display: flex;
+	}
+}
+
+@media (max-width: $breakpoint-md) {
+	.footer {
+		display: none;
+	}
+}

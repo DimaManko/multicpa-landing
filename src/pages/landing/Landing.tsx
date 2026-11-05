@@ -3,6 +3,8 @@ import { Await, useLoaderData } from 'react-router'
 
 import { Background } from '@/widgets/background'
 import { Benefits } from '@/widgets/benefits'
+import { Footer } from '@/widgets/footer'
+import { Multiply } from '@/widgets/multiply'
 import { Preloader } from '@/widgets/preloader'
 
 import type { loader } from './model/loader'
@@ -19,16 +21,17 @@ const LandingPage = () => {
       {isPreloaderDone && (
         <Suspense fallback={null}>
           <Await resolve={data} errorElement={<p>Failed to load data</p>}>
-            {(resolved) => {
-              const benefits = resolved[1]
-
+            {([, benefits, multiply]) => {
               return (
-                <Benefits
-                  locale={lang}
-                  title={benefits.title}
-                  description={benefits.description}
-                  benefits={benefits.benefits}
-                />
+                <>
+                  <Multiply items={multiply} footer={<Footer />} />
+                  <Benefits
+                    locale={lang}
+                    title={benefits.title}
+                    description={benefits.description}
+                    benefits={benefits.benefits}
+                  />
+                </>
               )
             }}
           </Await>

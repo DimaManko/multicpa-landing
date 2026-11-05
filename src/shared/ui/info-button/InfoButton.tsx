@@ -6,15 +6,28 @@ type Props = {
   children: ReactNode
   isActive?: boolean
   disabled?: boolean
+  id?: string
+  controls?: string
   onClick: () => void
 }
 
-const InfoButton = ({ children, isActive = false, disabled = false, onClick }: Props) => {
+const InfoButton = ({
+  children,
+  isActive = false,
+  disabled = false,
+  id,
+  controls,
+  onClick,
+}: Props) => {
   return (
     <button
       className={`${styles.button} ${isActive ? styles.active : ''}`}
+      id={id}
       type="button"
-      aria-pressed={isActive}
+      role="tab"
+      aria-selected={isActive}
+      tabIndex={isActive ? 0 : -1}
+      aria-controls={controls}
       disabled={disabled}
       onClick={onClick}
     >

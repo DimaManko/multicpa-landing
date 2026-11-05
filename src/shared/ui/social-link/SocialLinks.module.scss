@@ -12,7 +12,7 @@
   .link {
     @include social-link;
 
-    color: $color-white;
+    color: var(--social-link-color, #{$color-white});
   }
 
   .icon {
@@ -22,6 +22,7 @@
 }
 
 .text {
+  flex-wrap: wrap;
   gap: 20px;
 
   .link {

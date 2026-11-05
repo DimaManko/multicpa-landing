@@ -7,11 +7,17 @@ type Props = {
   onClick?: () => void
   type?: 'button' | 'submit'
   disabled?: boolean
+  className?: string
 }
 
-const Button = ({ children, onClick, type = 'button', disabled = false }: Props) => {
+const Button = ({ children, onClick, type = 'button', disabled = false, className }: Props) => {
   return (
-    <button className={styles.button} onClick={onClick} type={type} disabled={disabled}>
+    <button
+      className={className ? `${styles.button} ${className}` : styles.button}
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+    >
       <span className={styles.face}>
         <span className={styles.label}>{children}</span>
       </span>

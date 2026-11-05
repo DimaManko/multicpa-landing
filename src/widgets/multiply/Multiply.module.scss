@@ -13,12 +13,6 @@
   padding-bottom: 6px;
 }
 
-.title {
-  @include font-section;
-
-  margin: 0;
-}
-
 .content {
   display: grid;
   grid-template-columns: minmax(0, 563fr) minmax(0, 757fr);
@@ -42,16 +36,11 @@
   justify-content: space-between;
 }
 
-.tab {
-  height: $button-height-choice;
-  padding-inline: 57px;
-}
-
 .snake {
   position: absolute;
   bottom: 0;
   left: calc($layout-padding-x / 3) ;
-  width: min(43.75vw, 630px);
+  width: min(43.75vw, 630px, calc((100svh - 488px) * 1.75));
   pointer-events: none;
 
   img {

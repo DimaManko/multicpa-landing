@@ -1,9 +1,11 @@
 import type { KeyboardEvent, ReactNode, Ref } from 'react'
 import { useId, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import type { Multiply as MultiplyData } from '@/shared/api'
 import snake from '@/shared/assets/img/multiply-snake.png'
 import { InfoButton } from '@/shared/ui/info-button'
+import { SectionLabel } from '@/shared/ui/SectionLabel'
 
 import MultiplyCard from './ui/MultiplyCard'
 
@@ -16,7 +18,7 @@ type Props = {
   ref?: Ref<HTMLElement>
 }
 
-const CTA_LABELS = ['Join the team', 'Partner up', 'Launch now']
+const CTA_KEYS = ['cta.joinTheTeam', 'cta.partnerUp', 'cta.launchNow'] as const
 
 const getNextTabIndex = (key: string, current: number, last: number) => {
   switch (key) {
@@ -36,6 +38,7 @@ const getNextTabIndex = (key: string, current: number, last: number) => {
 }
 
 function Multiply({ items, onCtaClick, footer, ref }: Props) {
+  const { t } = useTranslation()
   const [activeIndex, setActiveIndex] = useState(0)
   const baseId = useId()
   const panelId = `${baseId}-panel`
@@ -55,12 +58,12 @@ function Multiply({ items, onCtaClick, footer, ref }: Props) {
   return (
     <section ref={ref} className={styles.screen} id="multiply">
       <div className={styles.container}>
-        <h2 className={styles.title}>Multiply with us</h2>
+        <SectionLabel className={styles.title}>{t('multiply.title')}</SectionLabel>
         <div className={styles.content}>
           <div
             className={styles.tabs}
             role="tablist"
-            aria-label="Multiply with us"
+            aria-label={t('multiply.title')}
             aria-orientation="vertical"
             onKeyDown={handleTabsKeyDown}
           >
@@ -88,7 +91,7 @@ function Multiply({ items, onCtaClick, footer, ref }: Props) {
                 id={panelId}
                 labelledBy={getTabId(activeIndex)}
                 steps={active.steps}
-                ctaLabel={CTA_LABELS[activeIndex]}
+                ctaLabel={t(CTA_KEYS[activeIndex])}
                 onCtaClick={onCtaClick}
               />
             )}

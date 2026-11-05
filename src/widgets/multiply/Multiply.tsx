@@ -56,7 +56,7 @@ function Multiply({ items, onCtaClick, footer, ref }: Props) {
   return (
     <section ref={ref} className={styles.screen} id="multiply">
       <div className={styles.container}>
-        <SectionLabel>Multiply with us</SectionLabel>
+        <SectionLabel className={styles.title}>Multiply with us</SectionLabel>
         <div className={styles.content}>
           <div
             className={styles.tabs}

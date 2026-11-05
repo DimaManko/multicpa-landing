@@ -4,6 +4,7 @@ import { useId, useState } from 'react'
 import type { Multiply as MultiplyData } from '@/shared/api'
 import snake from '@/shared/assets/img/multiply-snake.png'
 import { InfoButton } from '@/shared/ui/info-button'
+import { SectionLabel } from '@/shared/ui/SectionLabel'
 
 import MultiplyCard from './ui/MultiplyCard'
 
@@ -55,7 +56,7 @@ function Multiply({ items, onCtaClick, footer, ref }: Props) {
   return (
     <section ref={ref} className={styles.screen} id="multiply">
       <div className={styles.container}>
-        <h2 className={styles.title}>Multiply with us</h2>
+        <SectionLabel>Multiply with us</SectionLabel>
         <div className={styles.content}>
           <div
             className={styles.tabs}

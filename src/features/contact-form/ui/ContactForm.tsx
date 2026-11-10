@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useId, useState } from 'react'
+import { useId } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useSendForm } from '@/shared/api'
@@ -16,13 +16,13 @@ type Props = {
 const ContactForm = ({ onClose }: Props) => {
   const formId = useId()
   const { send, isSuccess } = useSendForm()
-  const [hasCompletedRequest, setHasCompletedRequest] = useState(false)
 
   const {
     register,
     handleSubmit,
     setError,
     clearErrors,
+    resetField,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
@@ -34,7 +34,6 @@ const ContactForm = ({ onClose }: Props) => {
 
   const onSubmit = async (values: ContactFormValues): Promise<void> => {
     clearErrors('root')
-    setHasCompletedRequest(false)
 
     try {
       await send(values)
@@ -43,8 +42,6 @@ const ContactForm = ({ onClose }: Props) => {
         type: 'server',
         message: 'Не удалось отправить заявку. Попробуйте ещё раз.',
       })
-    } finally {
-      setHasCompletedRequest(true)
     }
   }
 
@@ -53,7 +50,11 @@ const ContactForm = ({ onClose }: Props) => {
       <div className={styles.success} role="status">
         <h2 className={styles.successTitle}>WE HAVE RECEIVED YOUR APPLICATION!</h2>
 
-        <p className={styles.successText}>We will process your request and get in touch with you</p>
+        <p className={styles.successText}>
+          We will process your request
+          <br />
+          and get in touch with you
+        </p>
 
         <button className={styles.submit} type="button" onClick={onClose}>
           Done
@@ -61,9 +62,6 @@ const ContactForm = ({ onClose }: Props) => {
       </div>
     )
   }
-
-  const hasSendError =
-    errors.root !== undefined || (hasCompletedRequest && !isSubmitting && !isSuccess)
 
   return (
     <form
@@ -98,7 +96,7 @@ const ContactForm = ({ onClose }: Props) => {
           </label>
 
           <select
-            {...register('method')}
+            {...register('method', { onChange: () => resetField('contact') })}
             className={styles.control}
             id={`${formId}-method`}
             defaultValue=""
@@ -158,9 +156,9 @@ const ContactForm = ({ onClose }: Props) => {
         </button>
       </fieldset>
 
-      {hasSendError && (
+      {errors.root && (
         <p className={styles.error} role="alert">
-          Не удалось отправить заявку. Попробуйте ещё раз.
+          {errors.root.message}
         </p>
       )}
     </form>

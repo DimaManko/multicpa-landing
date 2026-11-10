@@ -3,6 +3,7 @@ import { Await, useLoaderData } from 'react-router'
 
 import { Background } from '@/widgets/background'
 import { Preloader } from '@/widgets/preloader'
+import { ContactModal } from '@/features/contact-form'
 
 import type { loader } from './model/loader'
 import { useIsPending } from './model/useIsPending'
@@ -19,7 +20,12 @@ const LandingPage = () => {
       {isPreloaderDone && (
         <Suspense fallback={null}>
           <Await resolve={data} errorElement={<p>Failed to load data</p>}>
-            {() => <h1>Landing: {lang}</h1>}
+            {() => (
+              <>
+                <h1>Landing: {lang}</h1>
+                <ContactModal label="Contact us" />
+              </>
+            )}
           </Await>
         </Suspense>
       )}

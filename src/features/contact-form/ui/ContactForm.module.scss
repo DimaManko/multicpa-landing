@@ -2,17 +2,26 @@
     width: 100%;
     color: $color-ink;
     font-family: $font-family-second;
-    font-size: 16px;
-    line-height: 1.4;
+    font-size: 13px;
+    line-height: normal;
 }
 
 .hint {
-    margin: 0 0 16px;
+    margin: 0 0 20px;
+    font-family: $font-family-base;
+    font-weight: $font-weight-light;
+    font-size: 14px;
+    line-height: normal;
+}
+
+.accent {
+    color: $color-purple;
+    font-weight: $font-weight-regular;
 }
 
 .fields {
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
 
     min-width: 0;
@@ -25,8 +34,31 @@
     grid-column: 1 / -1;
 }
 
-.field {
+.contactField {
+    grid-column: span 2;
+}
+
+.field,
+.contactField {
+    position: relative;
     min-width: 0;
+}
+
+.placeholder {
+    position: absolute;
+    top: 0;
+    left: 13px;
+    display: flex;
+    align-items: center;
+    height: $field-height;
+    letter-spacing: -0.01em;
+    font-weight: $font-weight-light;
+    pointer-events: none;
+}
+
+input.control:not(:placeholder-shown) + .placeholder,
+select.control:not(:invalid) + .placeholder {
+    display: none;
 }
 
 .label {
@@ -43,21 +75,38 @@
 .control {
     box-sizing: border-box;
     width: 100%;
-    min-height: $field-height;
-    padding: 6px 12px;
-    line-height: 1.25;
+    height: $field-height;
+    padding: 7px 12px;
+    line-height: normal;
 
-    border: 1px solid rgba($color-purple, 0.35);
+    border: 1px solid rgba($color-purple, 0.3);
     border-radius: 8px;
 
     background-color: $color-white;
     color: $color-ink;
     font: inherit;
+    font-weight: $font-weight-light;
 }
 
 .control::placeholder {
     color: $color-ink;
-    opacity: 0.7;
+    opacity: 1;
+}
+
+select.control:invalid {
+    color: transparent;
+}
+
+select.control option {
+    color: $color-ink;
+}
+
+select.control {
+    padding-right: 28px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M1 3h10L6 9z' fill='%239e13e0'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
 }
 
 .control:focus-visible {
@@ -83,10 +132,9 @@
     grid-column: 1 / -1;
     justify-self: center;
 
-    min-width: 132px;
     min-height: $button-height-form;
-    margin-top: 16px;
-    padding: 8px 24px;
+    margin-top: 18px;
+    padding: 9px 40px 10px;
 
     border: 0;
     border-radius: 8px;
@@ -95,8 +143,9 @@
     color: $color-ink;
 
     font-family: $font-family-base;
-    font-size: 16px;
-    font-weight: $font-weight-bold;
+    font-size: 14px;
+    font-weight: $font-weight-medium;
+    line-height: normal;
 
     cursor: pointer;
     transition:
@@ -148,6 +197,10 @@
 @media (max-width: $breakpoint-sm) {
     .fields {
         grid-template-columns: 1fr;
+    }
+
+    .contactField {
+        grid-column: auto;
     }
 }
 

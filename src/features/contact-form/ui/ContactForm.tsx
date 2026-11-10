@@ -72,7 +72,9 @@ const ContactForm = ({ onClose }: Props) => {
       aria-busy={isSubmitting}
       noValidate
     >
-      <p className={styles.hint}>Fields with an asterisk (*) are mandatory</p>
+      <p className={styles.hint}>
+        Fields with an asterisk (<span className={styles.accent}>*</span>) are mandatory
+      </p>
 
       <fieldset className={styles.fields} disabled={isSubmitting}>
         <div className={styles.nameField}>
@@ -100,6 +102,7 @@ const ContactForm = ({ onClose }: Props) => {
             className={styles.control}
             id={`${formId}-method`}
             defaultValue=""
+            required
             aria-required="true"
             aria-invalid={Boolean(errors.method)}
             aria-describedby={errors.method ? `${formId}-method-error` : undefined}
@@ -112,6 +115,10 @@ const ContactForm = ({ onClose }: Props) => {
             <option value="email">Email</option>
           </select>
 
+          <span className={styles.placeholder} aria-hidden="true">
+            Contact Method<span className={styles.accent}>*</span>
+          </span>
+
           {errors.method && (
             <p className={styles.error} id={`${formId}-method-error`} role="alert">
               {errors.method.message}
@@ -119,7 +126,7 @@ const ContactForm = ({ onClose }: Props) => {
           )}
         </div>
 
-        <div className={styles.field}>
+        <div className={styles.contactField}>
           <label className={styles.label} htmlFor={`${formId}-contact`}>
             Your Contact *
           </label>
@@ -129,11 +136,15 @@ const ContactForm = ({ onClose }: Props) => {
             className={styles.control}
             id={`${formId}-contact`}
             type="text"
-            placeholder="Your Contact"
+            placeholder=" "
             aria-required="true"
             aria-invalid={Boolean(errors.contact)}
             aria-describedby={errors.contact ? `${formId}-contact-error` : undefined}
           />
+
+          <span className={styles.placeholder} aria-hidden="true">
+            Your Contact<span className={styles.accent}>*</span>
+          </span>
 
           {errors.contact && (
             <p className={styles.error} id={`${formId}-contact-error`} role="alert">

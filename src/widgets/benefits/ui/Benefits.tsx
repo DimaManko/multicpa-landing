@@ -3,8 +3,6 @@ import type { ReactNode } from 'react'
 import snake from '@/shared/assets/img/benefits-snake.png'
 import type { Locale } from '@/shared/config/locales'
 import { SectionLabel } from '@/shared/ui/SectionLabel'
-
-import { SocialLinks } from '../../../shared/ui/social-links'
 import { accentWord, marqueePhrase, sectionLabel } from '../model/copy'
 import { Marquee } from './Marquee'
 
@@ -66,7 +64,6 @@ export function Benefits({ locale, title, description, benefits }: Props) {
             {renderTitle(title, accentWord[locale])}
           </h2>
           <p className={styles.description}>{description}</p>
-          <SocialLinks variant="icons" />
         </div>
         <img className={styles.snake} src={snake} alt="" aria-hidden="true" draggable={false} />
         <ul className={styles.cards}>

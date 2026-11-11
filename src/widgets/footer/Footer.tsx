@@ -1,4 +1,5 @@
-import { ScrollTopButton } from '../../shared/ui/scroll-top-button'
+import { ScrollTopButton } from '@/shared/ui/scroll-top-button'
+
 import { SocialLinks } from '../../shared/ui/social-links'
 
 import style from './Footer.module.scss'

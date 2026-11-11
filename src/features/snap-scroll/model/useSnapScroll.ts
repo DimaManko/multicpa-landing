@@ -1,4 +1,5 @@
 import gsap from 'gsap'
+import { Observer } from 'gsap/Observer'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { defaultEnter, defaultLeave } from './defaultAnimation'
@@ -7,7 +8,8 @@ import { useMediaQuery } from './useMediaQuery'
 
 const MOBILE_QUERY = '(max-width: 768px)'
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
-const WHEEL_GAP = 120
+
+gsap.registerPlugin(Observer)
 
 const KEY_TARGETS: Record<string, (current: number, last: number) => number> = {
   ArrowDown: (current) => current + 1,
@@ -66,8 +68,7 @@ export const useSnapScroll = (
     const elements = Array.from(root.querySelectorAll<HTMLElement>(':scope > [data-snap-section]'))
     const last = count - 1
     let isAnimating = false
-    let lastWheelAt = 0
-    let unlockedAt = 0
+    let isGestureActive = false
 
     const context = gsap.context(() => {
       gsap.set(elements, { autoAlpha: 0 })
@@ -89,7 +90,6 @@ export const useSnapScroll = (
         const timeline = gsap.timeline({
           onComplete: () => {
             isAnimating = false
-            unlockedAt = performance.now()
             const previous = from === null ? undefined : elements[from]
 
             if (previous && from !== to) {
@@ -132,23 +132,29 @@ export const useSnapScroll = (
       run(current, target, target > current ? 1 : -1)
     }
 
-    const handleWheel = (event: WheelEvent) => {
-      if (event.ctrlKey || isInsideModal(event.target)) {
+    const handleStep = (direction: SnapDirection) => {
+      if (isAnimating || isGestureActive) {
         return
       }
 
-      event.preventDefault()
-
-      const isNewGesture = event.timeStamp - lastWheelAt > WHEEL_GAP
-
-      lastWheelAt = event.timeStamp
-
-      if (event.deltaY === 0 || isAnimating || event.timeStamp < unlockedAt || !isNewGesture) {
-        return
-      }
-
-      goTo(activeRef.current + (event.deltaY > 0 ? 1 : -1))
+      isGestureActive = true
+      goTo(activeRef.current + direction)
     }
+
+    const observer = Observer.create({
+      target: window,
+      type: 'wheel',
+      wheelSpeed: -1,
+      tolerance: 10,
+      preventDefault: true,
+      ignoreCheck: (event) =>
+        (event instanceof WheelEvent && event.ctrlKey) || isInsideModal(event.target),
+      onUp: () => handleStep(1),
+      onDown: () => handleStep(-1),
+      onStop: () => {
+        isGestureActive = false
+      },
+    })
 
     const handleKeyDown = (event: KeyboardEvent) => {
       const getTarget = KEY_TARGETS[event.key]
@@ -178,12 +184,11 @@ export const useSnapScroll = (
     goToRef.current = goTo
     run(null, Math.min(activeRef.current, last), 1)
 
-    window.addEventListener('wheel', handleWheel, { passive: false })
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('hashchange', handleHashChange)
 
     return () => {
-      window.removeEventListener('wheel', handleWheel)
+      observer.kill()
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('hashchange', handleHashChange)
       goToRef.current = () => undefined

@@ -7,7 +7,7 @@ import { useMediaQuery } from './useMediaQuery'
 
 const MOBILE_QUERY = '(max-width: 768px)'
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
-const WHEEL_GAP = 50
+const WHEEL_GAP = 120
 
 const KEY_TARGETS: Record<string, (current: number, last: number) => number> = {
   ArrowDown: (current) => current + 1,
@@ -67,6 +67,7 @@ export const useSnapScroll = (
     const last = count - 1
     let isAnimating = false
     let lastWheelAt = 0
+    let unlockedAt = 0
 
     const context = gsap.context(() => {
       gsap.set(elements, { autoAlpha: 0 })
@@ -88,6 +89,7 @@ export const useSnapScroll = (
         const timeline = gsap.timeline({
           onComplete: () => {
             isAnimating = false
+            unlockedAt = performance.now()
             const previous = from === null ? undefined : elements[from]
 
             if (previous && from !== to) {
@@ -137,12 +139,11 @@ export const useSnapScroll = (
 
       event.preventDefault()
 
-      const now = performance.now()
-      const isNewGesture = now - lastWheelAt > WHEEL_GAP
+      const isNewGesture = event.timeStamp - lastWheelAt > WHEEL_GAP
 
-      lastWheelAt = now
+      lastWheelAt = event.timeStamp
 
-      if (event.deltaY === 0 || isAnimating || !isNewGesture) {
+      if (event.deltaY === 0 || isAnimating || event.timeStamp < unlockedAt || !isNewGesture) {
         return
       }
 

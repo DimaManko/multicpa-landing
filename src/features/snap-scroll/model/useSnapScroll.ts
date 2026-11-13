@@ -8,6 +8,7 @@ import { useMediaQuery } from './useMediaQuery'
 
 const MOBILE_QUERY = '(max-width: 768px)'
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
+const SCROLL_TO_DURATION = 1
 
 gsap.registerPlugin(Observer)
 
@@ -44,7 +45,7 @@ export const useSnapScroll = (
   const rootRef = useRef<HTMLDivElement>(null)
   const sectionsRef = useRef(sections)
   const onActiveChangeRef = useRef(onActiveChange)
-  const goToRef = useRef<(index: number) => void>(() => undefined)
+  const goToRef = useRef<(index: number, duration?: number) => void>(() => undefined)
   const [activeIndex, setActiveIndex] = useState(() => getHashIndex(sections))
   const activeRef = useRef(activeIndex)
   const count = sections.length
@@ -74,7 +75,7 @@ export const useSnapScroll = (
       gsap.set(elements, { autoAlpha: 0 })
     }, root)
 
-    const run = (from: number | null, to: number, direction: SnapDirection) => {
+    const run = (from: number | null, to: number, direction: SnapDirection, duration?: number) => {
       const target = elements[to]
       const config = sectionsRef.current
 
@@ -115,13 +116,17 @@ export const useSnapScroll = (
           timeline.add(entering, 0)
         }
 
+        if (duration !== undefined) {
+          timeline.duration(duration)
+        }
+
         if (window.matchMedia(REDUCED_MOTION_QUERY).matches) {
           timeline.progress(1)
         }
       })
     }
 
-    const goTo = (index: number) => {
+    const goTo = (index: number, duration?: number) => {
       const target = Math.min(Math.max(index, 0), last)
       const current = activeRef.current
 
@@ -129,7 +134,7 @@ export const useSnapScroll = (
         return
       }
 
-      run(current, target, target > current ? 1 : -1)
+      run(current, target, target > current ? 1 : -1, duration)
     }
 
     const handleStep = (direction: SnapDirection) => {
@@ -196,7 +201,7 @@ export const useSnapScroll = (
     }
   }, [isEnabled, count])
 
-  const goTo = useCallback((index: number) => goToRef.current(index), [])
+  const goTo = useCallback((index: number) => goToRef.current(index, SCROLL_TO_DURATION), [])
 
   return { rootRef, activeIndex, isEnabled, goTo }
 }

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import snake from '@/shared/assets/img/benefits-snake.png'
 import type { Locale } from '@/shared/config/locales'
 import { SectionLabel } from '@/shared/ui/SectionLabel'
+
 import { accentWord, marqueePhrase, sectionLabel } from '../model/copy'
 import { Marquee } from './Marquee'
 

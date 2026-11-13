@@ -13,6 +13,17 @@
     @include social-link;
 
     color: var(--social-link-color, #{$color-white});
+    transition: color 0.2s ease-out;
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--social-link-hover-color, #{$color-yellow});
+      }
+    }
+
+    &:focus-visible {
+      color: var(--social-link-hover-color, #{$color-yellow});
+    }
   }
 
   .icon {
@@ -33,14 +44,16 @@
     line-height: $font-line-single;
     text-transform: uppercase;
     color: $color-yellow;
-  }
-}
+    transition: color 0.2s ease-out;
 
-.link {
-  transition: opacity 0.2s ease-out;
+    @media (hover: hover) {
+      &:hover {
+        color: $color-white;
+      }
+    }
 
-  &:hover,
-  &:focus-visible {
-    opacity: 0.7;
+    &:focus-visible {
+      color: $color-white;
+    }
   }
 }

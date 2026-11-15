@@ -15,6 +15,11 @@
   display: flex;
   width: max-content;
   animation: marquee 22s linear infinite;
+  animation-play-state: paused;
+}
+
+.isRunning {
+  animation-play-state: running;
 }
 
 .group {
@@ -103,7 +108,7 @@
     min-width: 0;
   }
 
-  .group[aria-hidden='true'] {
+  .group[aria-hidden="true"] {
     display: none;
   }
 

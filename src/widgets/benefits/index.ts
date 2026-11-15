@@ -1,3 +1,3 @@
 export { Benefits } from './ui/Benefits'
 
-export {benefitsEnter} from './model/animation'
+export {benefitsEnter, benefitsLeave} from './model/animation'

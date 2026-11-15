@@ -30,7 +30,7 @@ export function Marquee({ phrase, className }: Props) {
 
   return (
     <div className={marqueeClassName}>
-      <div className={styles.track}>
+      <div className={styles.track} data-marquee>
         <PhraseGroup phrase={phrase} />
         <PhraseGroup phrase={phrase} isHidden />
       </div>

@@ -12,6 +12,8 @@ import { SnapScroll } from '@/features/snap-scroll'
 import type { loader } from './model/loader'
 import { useIsPending } from './model/useIsPending'
 
+import { benefitsEnter } from '@/widgets/benefits'
+
 const LandingPage = () => {
   const { data, lang } = useLoaderData<typeof loader>()
   const isLoading = useIsPending(data)
@@ -31,6 +33,7 @@ const LandingPage = () => {
                   sections={[
                     {
                       id: 'benefits',
+                      enter: benefitsEnter,
                       content: (
                         <Benefits
                           locale={lang}

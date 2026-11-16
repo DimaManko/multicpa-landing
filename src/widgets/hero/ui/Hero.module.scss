@@ -1,0 +1,67 @@
+.screen {
+  @include screen;
+
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 100svh;
+}
+
+.content {
+  @include container;
+
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 24px;
+  padding-block: 24px;
+}
+
+.title {
+  margin: 0;
+  color: $color-white;
+  font-family: $font-family-base;
+  font-size: clamp(28px, 4vw, 60px);
+  font-weight: $font-weight-bold;
+  line-height: $font-line-single;
+  text-transform: uppercase;
+}
+
+.accent {
+  color: $color-yellow;
+}
+
+.description {
+  margin: 16px 0 24px;
+  color: $color-white;
+  font-family: $font-family-second;
+  line-height: $font-line-base;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.socials {
+  @include container;
+
+  padding-block: 16px 24px;
+}
+
+@media (max-width: $breakpoint-md) {
+  .screen {
+    overflow: visible;
+  }
+
+  .content {
+    grid-template-columns: minmax(0, 1fr);
+    padding-inline: 20px;
+  }
+
+  .socials {
+    padding-inline: 20px;
+  }
+}

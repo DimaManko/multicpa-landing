@@ -1,0 +1,32 @@
+.header {
+  @include container;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 24px;
+}
+
+.actions,
+.nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.link {
+  @include font-menu;
+}
+
+@media (max-width: $breakpoint-md) {
+  .header {
+    padding-inline: 20px;
+  }
+
+  .actions,
+  .nav {
+    gap: 12px;
+  }
+}

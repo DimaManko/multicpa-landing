@@ -14,30 +14,10 @@
     calc(32px + (100vw - 393px) * 32 / 1047),
     64px
   );
-  --button-font-size: clamp(
-    18px,
-    calc(18px + (100vw - 393px) * 5 / 1047),
-    23px
-  );
   --button-height: clamp(
     60px,
     calc(60px + (100vw - 393px) * 22 / 1047),
     82px
-  );
-  --button-padding-top: clamp(
-    7px,
-    calc(7px + (100vw - 393px) * 3 / 1047),
-    10px
-  );
-  --button-padding-right: clamp(
-    20px,
-    calc(20px + (100vw - 393px) * 8 / 1047),
-    28px
-  );
-  --button-padding-left: clamp(
-    16px,
-    calc(16px + (100vw - 393px) * 4 / 1047),
-    20px
   );
   --snake-width: clamp(
     386px,
@@ -126,32 +106,9 @@
   user-select: none;
 }
 
-.button {
-  @include font-button;
-  position: relative;
+.action {
   flex-shrink: 0;
-  isolation: isolate;
-  box-sizing: border-box;
-  height: var(--button-height);
   margin-top: var(--gap-title-button);
-  padding: var(--button-padding-top) var(--button-padding-right) 0
-    var(--button-padding-left);
-  border: 0;
-  background: none;
-  font-size: var(--button-font-size);
-  color: $color-ink;
-  text-transform: uppercase;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.button::before {
-  content: "";
-  position: absolute;
-  inset: -1.25px;
-  z-index: -1;
-  background: url("@/shared/assets/icons/button-main.svg") center / 100% 100%
-    no-repeat;
 }
 
 @media (max-width: 960px) {
@@ -200,7 +157,6 @@
     --title-margin-top: 16px;
     --gap-title-button: 16px;
     --button-height: 52px;
-    --button-font-size: 16px;
     --title-size: min(
       180px,
       calc(

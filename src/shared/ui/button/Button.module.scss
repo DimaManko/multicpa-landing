@@ -1,0 +1,114 @@
+.button {
+  @include font-button;
+
+  --button-fill: #{$color-yellow};
+  --button-ink: #{$color-ink};
+
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  height: $button-height;
+  padding: 8px 10px 0 0;
+
+  border: 0;
+  background: transparent;
+  color: var(--button-ink);
+
+  white-space: nowrap;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.button::before,
+.button::after {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  border: 2.5px solid var(--button-ink);
+  background-color: var(--button-fill);
+  pointer-events: none;
+}
+
+.button::before {
+  top: 0;
+  left: 0;
+  width: calc(100% - 10px);
+  height: 8px;
+  border-bottom: 0;
+
+  transform: skewX(-51.34deg);
+  transform-origin: bottom left;
+}
+
+.button::after {
+  top: 8px;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  border-left: 0;
+
+  transform: skewY(-38.66deg);
+  transform-origin: top left;
+}
+
+.face {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 0;
+  height: 100%;
+  padding: 0 17px;
+
+  border: 2.5px solid var(--button-ink);
+  background-color: var(--button-fill);
+}
+
+.label {
+  margin-right: -$font-tracking-button;
+}
+
+@media (hover: hover) {
+  .button:not(:disabled):hover {
+    --button-fill: #{$color-ink};
+    --button-ink: #{$color-yellow};
+  }
+}
+
+.button:focus-visible {
+  outline: none;
+}
+
+.button:focus-visible .face {
+  outline: 2px solid $color-purple;
+  outline-offset: -6px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: $breakpoint-md) {
+  .button {
+    height: auto;
+    min-height: 60px;
+    font-size: 18px;
+    white-space: normal;
+  }
+
+  .face {
+    height: auto;
+    min-height: 52px;
+    padding: 12px 20px;
+  }
+
+  .label {
+    overflow-wrap: anywhere;
+  }
+}

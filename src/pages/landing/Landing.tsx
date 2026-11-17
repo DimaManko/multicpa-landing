@@ -49,10 +49,12 @@ const LandingPage = () => {
 															}
 															languageSwitch={<LocaleSwitch />}
 															links={[
+																{ label: lang === 'ru' ? 'Команда' : 'Team' },
 																{
 																	label: lang === 'ru' ? 'Преимущества' : 'Benefits',
 																	onClick: () => snapRef.current?.goTo(1),
 																},
+																{ label: lang === 'ru' ? 'С нами' : 'Join us' },
 															]}
 														/>
 													}

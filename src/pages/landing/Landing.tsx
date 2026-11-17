@@ -2,7 +2,7 @@ import { Suspense, useRef, useState } from 'react'
 import { Await, useLoaderData } from 'react-router'
 
 import { Background } from '@/widgets/background'
-import { Benefits } from '@/widgets/benefits'
+import { Benefits, benefitsEnter, benefitsLeave } from '@/widgets/benefits'
 import { Footer } from '@/widgets/footer'
 import { Multiply } from '@/widgets/multiply'
 import { Preloader } from '@/widgets/preloader'
@@ -11,8 +11,6 @@ import { SnapScroll } from '@/features/snap-scroll'
 
 import type { loader } from './model/loader'
 import { useIsPending } from './model/useIsPending'
-
-import { benefitsEnter, benefitsLeave } from '@/widgets/benefits'
 
 const LandingPage = () => {
   const { data, lang } = useLoaderData<typeof loader>()

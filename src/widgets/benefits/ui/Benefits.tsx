@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import snake from '@/shared/assets/img/benefits-snake.png'
 import type { Locale } from '@/shared/config/locales'
 import { SectionLabel } from '@/shared/ui/SectionLabel'
+
 import { accentWord, marqueePhrase, sectionLabel } from '../model/copy'
 import { Marquee } from './Marquee'
 
@@ -56,7 +57,7 @@ const renderTitle = (title: string, accent: string): ReactNode => {
 
 export function Benefits({ locale, title, description, benefits }: Props) {
   return (
-    <section className={styles.screen} aria-labelledby="benefits-title" >
+    <section className={styles.screen} aria-labelledby="benefits-title">
       <div className={styles.content} data-anim="content">
         <SectionLabel className={styles.label}>{sectionLabel[locale]}</SectionLabel>
         <div className={styles.copy} data-anim="copy">
@@ -65,7 +66,14 @@ export function Benefits({ locale, title, description, benefits }: Props) {
           </h2>
           <p className={styles.description}>{description}</p>
         </div>
-        <img className={styles.snake} src={snake} alt="" aria-hidden="true" draggable={false} data-anim="snake"/>
+        <img
+          className={styles.snake}
+          src={snake}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          data-anim="snake"
+        />
         <ul className={styles.cards} data-anim="cards">
           {benefits.map((benefit) => (
             <li className={styles.card} key={benefit}>

@@ -10,7 +10,11 @@ import { Multiply } from '@/widgets/multiply'
 import { Preloader } from '@/widgets/preloader'
 import type { SnapScrollHandle } from '@/features/snap-scroll'
 import { SnapScroll } from '@/features/snap-scroll'
-import logo from '@/shared/assets/icons/logo.svg'
+
+import { LocaleSwitch } from '@/features/locale-switch'
+import { Button } from '@/shared/ui/button'
+import { Logo } from '@/shared/ui/logo'
+import { SocialLinks } from '@/shared/ui/social-links'
 
 import type { loader } from './model/loader'
 import { useIsPending } from './model/useIsPending'
@@ -36,7 +40,24 @@ const LandingPage = () => {
 											id: 'hero',
 											content: (
 												<Hero
-													header={<Header logo={<img src={logo} alt="MultiCPA" width={48} />} />}
+													header={
+														<Header
+															logo={
+																<span role="img" aria-label="MultiCPA">
+																	<Logo />
+																</span>
+															}
+															languageSwitch={<LocaleSwitch />}
+															links={[
+																{
+																	label: lang === 'ru' ? 'Преимущества' : 'Benefits',
+																	onClick: () => snapRef.current?.goTo(1),
+																},
+															]}
+														/>
+													}
+													action={<Button disabled>Get in touch</Button>}
+													socials={<SocialLinks variant="icons" />}
 												/>
 											),
 										},

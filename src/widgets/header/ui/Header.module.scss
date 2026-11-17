@@ -1,39 +1,46 @@
 .header {
-  @include container;
+    @include container;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding-block: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 24px;
 }
 
 .actions,
 .nav {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 24px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
 }
 
 .link {
-  @include font-menu;
+    @include font-menu;
+    line-height: 1;
+    letter-spacing: 0;
+    text-decoration-thickness: 1px;
 }
 
 @media (max-width: $breakpoint-md) {
-  .header {
-    padding-inline: 20px;
-  }
+    .header {
+        padding-inline: 20px;
+    }
 
-  .actions,
-  .nav {
-    gap: 12px;
-  }
+    .actions,
+    .nav {
+        gap: 12px;
+    }
 }
 
 .navButton {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.brand svg {
+    filter: brightness(0) invert(1);
 }

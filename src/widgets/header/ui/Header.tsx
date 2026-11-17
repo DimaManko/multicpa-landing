@@ -5,13 +5,13 @@ import styles from './Header.module.scss'
 type HeaderProps = {
     logo: ReactNode
     languageSwitch?: ReactNode
-    links?: readonly { label: string; onClick: () => void }[]
+    links?: readonly { label: string; onClick?: () => void }[]
 }
 
 export function Header({ logo, languageSwitch, links = [] }: HeaderProps) {
     return (
         <header className={styles.header}>
-            {logo}
+            <div className={styles.brand}>{logo}</div>
 
             <div className={styles.actions}>
                 {links.length > 0 && (
@@ -22,6 +22,8 @@ export function Header({ logo, languageSwitch, links = [] }: HeaderProps) {
                                 className={`${styles.link} ${styles.navButton}`}
                                 type="button"
                                 onClick={onClick}
+                                disabled={!onClick}
+
                             >
                                 {label}
                             </button>

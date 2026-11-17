@@ -13,7 +13,7 @@ type HeroProps = {
 export function Hero({ header, action, socials }: HeroProps) {
   return (
     <section className={styles.screen} aria-labelledby="hero-title">
-      {header}
+      <div className={styles.header}>{header}</div>
 
       <div className={styles.content}>
         <div className={styles.copy}>
@@ -24,8 +24,8 @@ export function Hero({ header, action, socials }: HeroProps) {
           </h1>
 
           <p className={styles.description}>
-            We provide effective solutions, tested and refined on our own products
-            and ad budgets
+            We provide effective solutions, tested and refined <br/> 
+            on our own products and ad budgets
           </p>
 
           {action}

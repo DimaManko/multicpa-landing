@@ -1,67 +1,87 @@
 .screen {
-  @include screen;
+    @include screen;
 
-  display: flex;
-  flex-direction: column;
-  height: auto;
-  min-height: 100svh;
+    display: grid;
+}
+
+.header {
+    grid-area: 1 / 1;
+    align-self: start;
+    z-index: 1;
 }
 
 .content {
-  @include container;
+    @include container;
 
-  display: grid;
-  flex: 1;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  align-items: center;
-  gap: 24px;
-  padding-block: 24px;
+    display: grid;
+    grid-area: 1 / 1;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 24px;
+    padding-block: 24px;
 }
 
 .title {
-  margin: 0;
-  color: $color-white;
-  font-family: $font-family-base;
-  font-size: clamp(28px, 4vw, 60px);
-  font-weight: $font-weight-bold;
-  line-height: $font-line-single;
-  text-transform: uppercase;
+    margin: 0;
+    color: $color-white;
+    font-family: $font-family-base;
+    font-size: clamp(28px, 4vw, 60px);
+    font-weight: $font-weight-bold;
+    line-height: $font-line-single;
+    text-transform: uppercase;
 }
 
 .accent {
-  color: $color-yellow;
+    color: $color-yellow;
 }
 
 .description {
-  margin: 16px 0 24px;
-  color: $color-white;
-  font-family: $font-family-second;
-  line-height: $font-line-base;
+    margin: 16px 0 24px;
+    color: $color-white;
+    font-family: $font-family-second;
+    font-size: 16px;
+    font-weight: $font-weight-regular;
+    line-height: 24px;
+    letter-spacing: 0;
 }
 
 .image {
-  display: block;
-  width: 100%;
-  height: auto;
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 .socials {
-  @include container;
+    @include container;
+    grid-area: 1 / 1;
+    align-self: end;
+    z-index: 1;
 
-  padding-block: 16px 24px;
+    padding-block: 16px 24px;
 }
 
 @media (max-width: $breakpoint-md) {
-  .screen {
-    overflow: visible;
-  }
+    .screen {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: 100svh;
+        overflow: visible;
+    }
 
-  .content {
-    grid-template-columns: minmax(0, 1fr);
-    padding-inline: 20px;
-  }
+    .content {
+        grid-template-columns: minmax(0, 1fr);
+        padding-inline: 20px;
+    }
 
-  .socials {
-    padding-inline: 20px;
-  }
+    .header {
+        align-self: stretch;
+    }
+
+    .socials {
+        align-self: stretch;
+        padding-inline: 20px;
+    }
+
+
 }

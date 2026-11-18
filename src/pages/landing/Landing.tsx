@@ -4,7 +4,7 @@ import { Await, useLoaderData } from 'react-router'
 import { Background } from '@/widgets/background'
 import { Benefits } from '@/widgets/benefits'
 import { Footer } from '@/widgets/footer'
-import { Multiply } from '@/widgets/multiply'
+import { Multiply, multiplyEnter, multiplyLeave } from '@/widgets/multiply'
 import { Preloader } from '@/widgets/preloader'
 import type { SnapScrollHandle } from '@/features/snap-scroll'
 import { SnapScroll } from '@/features/snap-scroll'
@@ -42,6 +42,8 @@ const LandingPage = () => {
                     },
                     {
                       id: 'multiply',
+                      enter: multiplyEnter,
+                      leave: multiplyLeave,
                       content: (
                         <Multiply
                           items={multiply}

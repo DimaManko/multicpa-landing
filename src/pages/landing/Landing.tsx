@@ -2,7 +2,7 @@ import { Suspense, useRef, useState } from 'react'
 import { Await, useLoaderData } from 'react-router'
 
 import { Background } from '@/widgets/background'
-import { Benefits } from '@/widgets/benefits'
+import { Benefits, benefitsEnter, benefitsLeave } from '@/widgets/benefits'
 import { Footer } from '@/widgets/footer'
 import { Multiply, multiplyEnter, multiplyLeave } from '@/widgets/multiply'
 import { Preloader } from '@/widgets/preloader'
@@ -31,6 +31,8 @@ const LandingPage = () => {
                   sections={[
                     {
                       id: 'benefits',
+                      enter: benefitsEnter,
+                      leave: benefitsLeave,
                       content: (
                         <Benefits
                           locale={lang}

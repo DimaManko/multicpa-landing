@@ -58,16 +58,23 @@ const renderTitle = (title: string, accent: string): ReactNode => {
 export function Benefits({ locale, title, description, benefits }: Props) {
   return (
     <section className={styles.screen} aria-labelledby="benefits-title">
-      <div className={styles.content}>
+      <div className={styles.content} data-anim="content">
         <SectionLabel className={styles.label}>{sectionLabel[locale]}</SectionLabel>
-        <div className={styles.copy}>
+        <div className={styles.copy} data-anim="copy">
           <h2 id="benefits-title" className={styles.title}>
             {renderTitle(title, accentWord[locale])}
           </h2>
           <p className={styles.description}>{description}</p>
         </div>
-        <img className={styles.snake} src={snake} alt="" aria-hidden="true" draggable={false} />
-        <ul className={styles.cards}>
+        <img
+          className={styles.snake}
+          src={snake}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          data-anim="snake"
+        />
+        <ul className={styles.cards} data-anim="cards">
           {benefits.map((benefit) => (
             <li className={styles.card} key={benefit}>
               {benefit}

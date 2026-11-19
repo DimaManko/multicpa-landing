@@ -11,6 +11,7 @@ function Footer({ onScrollTop }: Props) {
   return (
     <footer className={style.footer}>
       <SocialLinks variant="text" className={style.textLinks} />
+      <SocialLinks variant="icons" className={style.iconLinks} />
 
       <ScrollTopButton onClick={onScrollTop} />
     </footer>

@@ -8,7 +8,8 @@ import { useMediaQuery } from './useMediaQuery'
 
 const MOBILE_QUERY = '(max-width: 768px)'
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
-const SCROLL_TO_DURATION = 1
+const SCROLL_TO_SECTION_DURATION = 0.45
+const SCROLL_TO_MIN_DURATION = 0.8
 
 gsap.registerPlugin(Observer)
 
@@ -45,7 +46,7 @@ export const useSnapScroll = (
   const rootRef = useRef<HTMLDivElement>(null)
   const sectionsRef = useRef(sections)
   const onActiveChangeRef = useRef(onActiveChange)
-  const goToRef = useRef<(index: number, duration?: number) => void>(() => undefined)
+  const goToRef = useRef<(index: number) => void>(() => undefined)
   const [activeIndex, setActiveIndex] = useState(() => getHashIndex(sections))
   const activeRef = useRef(activeIndex)
   const count = sections.length
@@ -137,6 +138,51 @@ export const useSnapScroll = (
       run(current, target, target > current ? 1 : -1, duration)
     }
 
+    const travelTo = (index: number) => {
+      const target = Math.min(Math.max(index, 0), last)
+      const from = activeRef.current
+
+      if (isAnimating || target === from) {
+        return
+      }
+
+      const involved = elements.slice(Math.min(from, target), Math.max(from, target) + 1)
+      const distance = target - from
+      const duration = window.matchMedia(REDUCED_MOTION_QUERY).matches
+        ? 0
+        : Math.max(Math.abs(distance) * SCROLL_TO_SECTION_DURATION, SCROLL_TO_MIN_DURATION)
+
+      activeRef.current = target
+      setActiveIndex(target)
+      isAnimating = true
+
+      context.add(() => {
+        const progress = { value: 0 }
+        const place = () => {
+          elements.forEach((element, position) => {
+            if (involved.includes(element)) {
+              gsap.set(element, { yPercent: (position - from - progress.value) * 100 })
+            }
+          })
+        }
+
+        gsap.set(involved, { autoAlpha: 1 })
+        place()
+
+        gsap.to(progress, {
+          value: distance,
+          duration,
+          ease: 'power2.inOut',
+          onUpdate: place,
+          onComplete: () => {
+            gsap.set(involved, { yPercent: 0, autoAlpha: 0 })
+            gsap.set(elements[target], { autoAlpha: 1 })
+            isAnimating = false
+          },
+        })
+      })
+    }
+
     const handleStep = (direction: SnapDirection) => {
       if (isAnimating || isGestureActive) {
         return
@@ -186,7 +232,7 @@ export const useSnapScroll = (
       goTo(getHashIndex(sectionsRef.current))
     }
 
-    goToRef.current = goTo
+    goToRef.current = travelTo
     run(null, Math.min(activeRef.current, last), 1)
 
     window.addEventListener('keydown', handleKeyDown)
@@ -201,7 +247,7 @@ export const useSnapScroll = (
     }
   }, [isEnabled, count])
 
-  const goTo = useCallback((index: number) => goToRef.current(index, SCROLL_TO_DURATION), [])
+  const goTo = useCallback((index: number) => goToRef.current(index), [])
 
   return { rootRef, activeIndex, isEnabled, goTo }
 }

@@ -38,7 +38,8 @@
 }
 
 .cta {
-  width: 330px;
+  width: auto;
+  min-width: 330px;
   height: $button-height;
 }
 
@@ -68,9 +69,7 @@
   }
 
   .cta {
-    width: 250px;
-    height: 60px;
-    min-height: 60px;
-    white-space: nowrap;
+    min-width: 250px;
+    height: auto;
   }
 }

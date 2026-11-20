@@ -18,7 +18,7 @@ function MultiplyCard({ id, labelledBy, ctaLabel, onCtaClick, steps }: Props) {
       {Object.entries(steps).map(([key, value]) => (
         <div key={key} className={styles.stepWrapper}>
           <p className={styles.stepText}>{value}</p>
-          <ArrowDown className={styles.stepArrow} />
+          <ArrowDown className={styles.stepArrow} aria-hidden="true" />
         </div>
       ))}
       <Button className={styles.cta} onClick={onCtaClick}>

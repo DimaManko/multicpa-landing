@@ -2,7 +2,7 @@
 
 Одностраничный лендинг MultiCPA на React и TypeScript. Сборка идёт через Vite.
 
-На странице четыре экрана: первый со сменой слова, MULTI-TASKS, MULTI-BENEFITS с бегущей строкой и MULTIPLY WITH US. Тексты задач, преимуществ и блока multiply приходят с API уже на нужном языке. Подписи, которых в API нет, отдаёт i18next из словарей `en` и `ru`. Язык для этих подписей берётся из адреса, а если первый сегмент не язык — из `sessionStorage`. С первого экрана и с блока multiply открывается форма связи. Английская версия открывается на `/`, русская — на `/ru`. Номер экрана в адресе не хранится: его держит скролл и якорь, например `#join`.
+По схеме на странице четыре экрана: первый со сменой слова, MULTI-TASKS, MULTI-BENEFITS с бегущей строкой и MULTIPLY WITH US. Тексты задач, преимуществ и блока multiply приходят с API уже на нужном языке. Подписи, которых в API нет, отдаёт i18next из словарей `en` и `ru`. Язык для этих подписей берётся из адреса, а если первый сегмент не язык — из `sessionStorage`. С первого экрана и с блока multiply открывается форма связи. Английская версия открывается на `/`, русская — на `/ru`. Номер экрана в адресе не хранится: его держит скролл и якорь, например `#join`.
 
 ## Стек
 
@@ -18,10 +18,13 @@
 | React Hook Form        | 7                 | Состояние и отправка контактной формы                                               |
 | Zod                    | 4                 | Схема валидации формы. В React Hook Form подключается через `@hookform/resolvers` 5 |
 | SCSS Modules           | sass 1            | Стили компонента рядом с компонентом, классы не пересекаются                        |
-| GSAP                   | 3                 | Анимация перелистывания экранов                                                     |
+| React Router           | 7                 | Роутер в data mode: `createBrowserRouter` и `RouterProvider`                        |
+| GSAP                   | 3                 | Перелистывание экранов и свечение фона. Плагин `Observer` для колеса                |
+| `@gsap/react`          | 2                 | Хук `useGSAP`: свечение фона и снятие анимации при размонтировании                  |
+| `modern-normalize`     | 3                 | Сброс стилей браузера. Подключён в `src/app/styles/index.scss`                      |
+| `vite-plugin-svgr`     | 5                 | SVG как React-компонент: `import Icon from './icon.svg?react'`                      |
+| Biome                  | 2                 | Линтер, формат и порядок импортов по слоям FSD                                      |
 | прелоадер              | —                 | Виджет `widgets/preloader`: до лендинга показывает логотип и процент загрузки       |
-
-- Biome
 
 ## Архитектура
 
@@ -36,6 +39,20 @@
 | `shared`   | Общее для слоёв выше                | Запросы, список языков, словари i18next, кнопки, логотип, иконки |
 
 Схема страниц и связей — в [docs/architecture.md](docs/architecture.md).
+
+Страница `pages/landing` сейчас кладёт в `SnapScroll` две секции: `benefits` и `multiply`. На multiply вкладки с `role="tablist"`: стрелки, Home и End переключают пункт, подписи кнопок — `cta.joinTheTeam`, `cta.partnerUp` и `cta.launchNow`. Футер сидит внутри multiply и по кнопке наверх вызывает `goTo(0)`. Лоадер по-прежнему возвращает и `tasks`: страница читает кортеж как `[, benefits, multiply]`. Отдельной фичи `contact-form` в `src/features` нет: отправка заявки — хук `useSendForm` в `shared/api`.
+
+Общие компоненты лежат в `src/shared/ui`, у каждого слайса свой `index.ts`.
+
+| Слайс                | Зачем                                      |
+| -------------------- | ------------------------------------------ |
+| `button`             | Кнопка                                     |
+| `info-button`        | Вкладка на экране multiply                 |
+| `logo`               | Логотип, SVG-компонент                     |
+| `modal`              | Оболочка модалки                           |
+| `scroll-top-button`  | Кнопка «наверх»                            |
+| `SectionLabel`       | Подпись секции                             |
+| `social-links`       | Соцсети: варианты `icons` и `text`         |
 
 ## Роутинг
 
@@ -73,12 +90,36 @@ const { lang, data } = useLoaderData<typeof loader>()
 
 `Await` отдаёт кортеж `[tasks, benefits, multiply]`. Типы ответов — `Tasks`, `Benefits` и `Multiply` рядом с функциями в `shared/api`.
 
+Прелоадер в `widgets/preloader` смотрит на тот же промис через `useIsPending`. `useProgress` за 1.5 с доходит до 75%. Когда данные приехали, оставшиеся 25% добираются за 0.4 с, виджет вызывает `onFinish` и пропадает. Экраны монтируются только после этого.
+
+Фон — `widgets/background`. `useGlowSweep` через `useGSAP` гоняет пятно по четырём точкам, сегмент 3 секунды, цикл бесконечный. Анимация включается от `769px` и только без `prefers-reduced-motion: reduce`. Проп `isDimmed` ставит на корень `data-dimmed`.
+
 Правила:
 
 - Это обычные функции. Хук внутри `loader` не вызывается: `loader` выполняется до рендера.
 - `POST /form` в этот `loader` не входит. Отправка — хук `useSendForm` из `shared/api`.
 - Неизвестный язык и провал самого лоадера рисует `errorElement`, сейчас это страница 404. Ошибка внутри промиса `data` остаётся у `Await` и рисует его `errorElement`.
 - Виджеты экранов данные сами не запрашивают. Они получают их со страницы.
+
+## Перелистывание экранов
+
+Экран переключает `features/snap-scroll`. Страница передаёт секции и держит ref: `snapRef.current?.goTo(0)` возвращает на первую.
+
+Шире `768px` колесо, клавиши и якорь листают секции через GSAP. На `max-width: 768px` перелистывание выключено, секции идут друг за другом.
+
+| Ввод                    | Куда              |
+| ----------------------- | ----------------- |
+| колесо вверх            | следующая секция  |
+| колесо вниз             | предыдущая        |
+| `ArrowDown`, `PageDown` | следующая         |
+| `ArrowUp`, `PageUp`     | предыдущая        |
+| `Home`                  | первая            |
+| `End`                   | последняя         |
+| `#id`                   | секция с этим `id` |
+
+Пока секция не активна, на ней стоит `inert`. Колесо с зажатым `Ctrl` и событие внутри `[aria-modal="true"]` плагин не перехватывает. Клавиши молчат в поле ввода и в модалке.
+
+Вход и выход по умолчанию — сдвиг на 12% по вертикали и `autoAlpha`, 0.5 с, `power2.out`. Своя анимация задаётся полями `enter` и `leave` у секции. При `prefers-reduced-motion: reduce` таймлайн сразу доигрывается до конца. Плагин `Observer` регистрируется в `useSnapScroll`.
 
 ## Интернационализация
 
@@ -90,7 +131,8 @@ const { lang, data } = useLoaderData<typeof loader>()
 | `cta`              | Все кнопки, в том числе `cta.takeMeBack` на 404                |
 | `form`             | Плейсхолдеры, подсказка про обязательные поля, submit           |
 | `modal`            | Тексты модалки успеха. `modal.close` — `aria-label` крестика    |
-| `benefits.accent`  | Основа акцентного слова: `guarant` / `гаранти`                  |
+| `benefits.accent`  | Основа акцентного слова в словаре: `guarant` / `гаранти`        |
+| `multiply.title`   | Подпись экрана MULTIPLY WITH US                                 |
 
 Так же переводятся `aria-label`, `alt` и `title`: `aria-label={t('modal.close')}`.
 
@@ -100,7 +142,7 @@ const { lang, data } = useLoaderData<typeof loader>()
 
 Текст, который видит пользователь, в разметку не пишется. Если строка приходит с API, в словарь её не кладут. Если это статика из таблицы выше — её добавляют в оба словаря и читают через `t()`.
 
-1. Выбери уже существующую группу: `header`, `cta`, `form`, `modal`, `benefits`. Новую группу заводи, только если строка ни в одну не ложится.
+1. Выбери уже существующую группу: `header`, `cta`, `form`, `modal`, `benefits`, `multiply`. Новую группу заводи, только если строка ни в одну не ложится.
 2. Добавь ключ в `en.json` и тот же ключ в `ru.json`, на том же месте. Имя ключа — английский `camelCase`. Пропущенный ключ в `en.json` поймает TypeScript: типы `t()` сняты с английского словаря.
 3. В компоненте возьми `useTranslation` и подставь `t('group.key')`. Язык компонент не переключает: его меняет лоадер, когда меняется адрес. Кнопка языка — это ссылка на `/` или `/ru`.
 
@@ -132,7 +174,7 @@ const JoinButton = () => {
 <span aria-hidden="true">*</span>
 ```
 
-Акцент в заголовке с API не размечай в словаре. Передай в `renderTitle` весь текст и основу из `t('benefits.accent')`.
+Акцент в заголовке с API не размечай в словаре. `renderTitle` в `widgets/benefits` ищет основу из `accentWord` в `widgets/benefits/model/copy.ts`. Подпись секции и фраза бегущей строки лежат в том же файле, по локали. Ключ `benefits.accent` в словаре повторяет ту же основу.
 
 Новый язык — отдельно, см. раздел ниже: код в `LOCALES`, файл `xx.json`, импорт в `resources`. Без импорта словарь в бандл не попадёт.
 
@@ -165,7 +207,7 @@ const JoinButton = () => {
 
 ### Акцент в заголовках из API
 
-API присылает текст без разметки, поэтому `<Trans>` не подходит. `renderTitle(title, t('benefits.accent'))` ищет основу без учёта регистра и выделяет слово целиком. Если сервер поменяет формулировку, подсветка пропадёт, вёрстка останется целой.
+API присылает текст без разметки, поэтому `<Trans>` не подходит. `renderTitle` в `widgets/benefits/ui/Benefits.tsx` ищет основу без учёта регистра и выделяет слово целиком. Основу он берёт из `accentWord` в `widgets/benefits/model/copy.ts`. Если сервер поменяет формулировку, подсветка пропадёт, вёрстка останется целой.
 
 ### Почему так
 
@@ -341,6 +383,18 @@ npm run build
 npm run preview
 ```
 
+Проверки:
+
+```bash
+npm run typecheck
+npm run lint
+npm run format
+npm run check
+npm run check:fix
+```
+
+`typecheck` гоняет `tsc -b`. `lint` — только линт Biome. `format` записывает формат. `check` смотрит линт, формат и импорты и ничего не пишет, `check:fix` применяет безопасные правки.
+
 ## Алиасы
 
 Базовый алиас `@` указывает на `src`. Он настроен и в Vite, и в TypeScript (`paths` в `tsconfig.app.json`).
@@ -352,6 +406,29 @@ import { something } from "@/shared/ui";
 ```
 
 В `vite.config.ts` алиас вынесен в `resolvePath`, чтобы туда же можно было добавить следующие пути.
+
+## Стили
+
+Глобальный вход — `src/app/styles/index.scss`. Он подключает `modern-normalize` и `src/shared/assets/styles`. Шрифты Halvar Breitschrift и Stolzl объявлены в `_fonts.scss` через `@font-face`.
+
+Переменные и миксины лежат в `src/shared/assets/styles/_variables.scss` и `_mixins.scss`. Vite дописывает их в каждый SCSS, кроме файлов внутри `shared/assets/styles`:
+
+```scss
+@use "@/shared/assets/styles/variables" as *;
+@use "@/shared/assets/styles/mixins" as *;
+```
+
+В модуле их можно брать сразу: `$color-yellow`, `@include font-section`. Сетка desktop-first: уже этой ширины стили пишутся через `max-width`. Брейкпоинты — `$breakpoint-sm` 640, `$breakpoint-md` 768, `$breakpoint-lg` 1024, `$breakpoint-xl` 1280, `$breakpoint-2xl` 1536.
+
+Иконка как компонент импортируется с суффиксом `?react`. Обычный адрес для `<img>` этот суффикс не использует. Плагин `vite-plugin-svgr` стоит в `plugins` рядом с `@vitejs/plugin-react`.
+
+```tsx
+import LogoIcon from '@/shared/assets/icons/logo.svg?react'
+```
+
+Список соцсетей — `SOCIAL_LINKS` в `src/shared/config/socials.ts`: Instagram, Telegram, LinkedIn. Рисует их `shared/ui/social-links`. Футер ставит оба варианта, `text` и `icons`, и кнопку `scroll-top-button`.
+
+Язык в шапке переключает `features/locale-switch`: это ссылки на `/` и `/ru`, активный язык берётся из `i18n.language`.
 
 ## Сборка
 

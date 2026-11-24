@@ -5,6 +5,8 @@ import { RouterProvider } from 'react-router/dom'
 import { router } from '@/app/router'
 import '@/app/styles/index.scss'
 
+import '@/shared/i18n/i18n'
+
 const rootElement = document.getElementById('root')
 
 if (!rootElement) {

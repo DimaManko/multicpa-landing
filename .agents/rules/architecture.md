@@ -13,9 +13,9 @@ Source of truth: `docs/architecture.md`. This file lists only the rules agents m
 ## Where code goes
 
 - `pages` only assemble widgets and features. No business logic.
-- `widgets` are what the user sees (header, hero, tasks, benefits, multiply, background, preloader).
+- `widgets` are what the user sees (header, hero, tasks, benefits, multiply, background, preloader, footer, not-found).
 - `features` are user interactions (snap-scroll, contact-form, locale-switch).
-- `shared` holds api, i18n, ui, assets.
+- `shared` holds api, i18n, ui (buttons and logo), assets.
 
 ## Conventions
 

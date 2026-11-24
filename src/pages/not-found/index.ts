@@ -1,3 +1,4 @@
-import NotFoundPage from "./NotFoundPage";
+import NotFoundPage from './NotFoundPage'
 
-export default NotFoundPage;
+export { loader } from './model/loader'
+export default NotFoundPage

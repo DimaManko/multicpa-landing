@@ -54,35 +54,15 @@
           "level": "on",
           "options": {
             "groups": [
-              [
-                ":NODE:",
-                ":PACKAGE:"
-              ],
+              [":NODE:", ":PACKAGE:"],
               ":BLANK_LINE:",
-              [
-                "@/app/**"
-              ],
-              [
-                "@/pages",
-                "@/pages/**"
-              ],
-              [
-                "@/widgets",
-                "@/widgets/**"
-              ],
-              [
-                "@/features",
-                "@/features/**"
-              ],
-              [
-                "@/shared",
-                "@/shared/**"
-              ],
+              ["@/app/**"],
+              ["@/pages", "@/pages/**"],
+              ["@/widgets", "@/widgets/**"],
+              ["@/features", "@/features/**"],
+              ["@/shared", "@/shared/**"],
               ":BLANK_LINE:",
-              [
-                ":PATH:",
-                "!:STYLE:"
-              ],
+              [":PATH:", "!:STYLE:"],
               ":BLANK_LINE:",
               ":STYLE:"
             ]
@@ -93,9 +73,7 @@
   },
   "overrides": [
     {
-      "includes": [
-        "src/shared/**"
-      ],
+      "includes": ["src/shared/**"],
       "linter": {
         "rules": {
           "style": {
@@ -124,9 +102,7 @@
       }
     },
     {
-      "includes": [
-        "src/features/**"
-      ],
+      "includes": ["src/features/**"],
       "linter": {
         "rules": {
           "style": {
@@ -146,10 +122,7 @@
                     "message": "FSD: features не может импортировать из вышележащих слоёв (widgets, pages, app)."
                   },
                   {
-                    "group": [
-                      "@/features",
-                      "@/features/**"
-                    ],
+                    "group": ["@/features", "@/features/**"],
                     "message": "FSD: фичи не импортируют друг друга. Внутри своего слайса используйте относительные пути, общий код выносите в shared."
                   }
                 ]
@@ -160,9 +133,7 @@
       }
     },
     {
-      "includes": [
-        "src/widgets/**"
-      ],
+      "includes": ["src/widgets/**"],
       "linter": {
         "rules": {
           "style": {
@@ -171,25 +142,15 @@
               "options": {
                 "patterns": [
                   {
-                    "group": [
-                      "@/app",
-                      "@/app/**",
-                      "@/pages",
-                      "@/pages/**"
-                    ],
+                    "group": ["@/app", "@/app/**", "@/pages", "@/pages/**"],
                     "message": "FSD: widgets не может импортировать из вышележащих слоёв (pages, app)."
                   },
                   {
-                    "group": [
-                      "@/widgets",
-                      "@/widgets/**"
-                    ],
+                    "group": ["@/widgets", "@/widgets/**"],
                     "message": "FSD: виджеты не импортируют друг друга. Внутри своего слайса используйте относительные пути."
                   },
                   {
-                    "group": [
-                      "@/features/*/**"
-                    ],
+                    "group": ["@/features/*/**"],
                     "message": "FSD: импортируйте фичу через её public API (@/features/<slice>)."
                   }
                 ]
@@ -200,9 +161,7 @@
       }
     },
     {
-      "includes": [
-        "src/pages/**"
-      ],
+      "includes": ["src/pages/**"],
       "linter": {
         "rules": {
           "style": {
@@ -211,24 +170,15 @@
               "options": {
                 "patterns": [
                   {
-                    "group": [
-                      "@/app",
-                      "@/app/**"
-                    ],
+                    "group": ["@/app", "@/app/**"],
                     "message": "FSD: pages не может импортировать из app."
                   },
                   {
-                    "group": [
-                      "@/pages",
-                      "@/pages/**"
-                    ],
+                    "group": ["@/pages", "@/pages/**"],
                     "message": "FSD: страницы не импортируют друг друга. Внутри своего слайса используйте относительные пути."
                   },
                   {
-                    "group": [
-                      "@/widgets/*/**",
-                      "@/features/*/**"
-                    ],
+                    "group": ["@/widgets/*/**", "@/features/*/**"],
                     "message": "FSD: импортируйте слайс через его public API (@/<layer>/<slice>)."
                   }
                 ]
@@ -239,9 +189,7 @@
       }
     },
     {
-      "includes": [
-        "src/app/**"
-      ],
+      "includes": ["src/app/**"],
       "linter": {
         "rules": {
           "style": {
@@ -250,11 +198,7 @@
               "options": {
                 "patterns": [
                   {
-                    "group": [
-                      "@/pages/*/**",
-                      "@/widgets/*/**",
-                      "@/features/*/**"
-                    ],
+                    "group": ["@/pages/*/**", "@/widgets/*/**", "@/features/*/**"],
                     "message": "FSD: импортируйте слайс через его public API (@/<layer>/<slice>)."
                   }
                 ]

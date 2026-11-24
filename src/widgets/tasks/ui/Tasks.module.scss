@@ -1,0 +1,114 @@
+.screen {
+    @include screen;
+}
+
+.container {
+    @include container;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    padding-block: 20px 29px;
+    gap: 21px;
+}
+
+.grid {
+    display: grid;
+    flex: 0 1 610px;
+    min-height: 0;
+    grid-template-columns: minmax(0, 559px) minmax(0, 1fr);
+    gap: 24px;
+    margin-block: auto;
+}
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: linear-gradient(244.6deg,
+            #9500dc 17.61%,
+            #560080 57.18%,
+            #220032 88.56%);
+    border-radius: 8px;
+}
+
+.description {
+    @include font-body;
+
+    margin: 0;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0;
+    color: $color-white;
+    padding: 30px 38px 0;
+    white-space: pre-line;
+}
+
+.image {
+    display: block;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+}
+
+.cards {
+    display: grid;
+    min-width: 0;
+    min-height: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.column {
+    display: grid;
+    min-width: 0;
+    min-height: 0;
+    grid-auto-rows: minmax(0, 1fr);
+    gap: 24px;
+}
+
+.card {
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: $color-purple;
+}
+
+.title {
+    margin: 0;
+    color: $color-yellow;
+    font-family: $font-family-base;
+    font-weight: $font-weight-bold;
+    font-size: 28px;
+    line-height: 28px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.text {
+    @include font-card;
+
+    margin: 0;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0;
+    opacity: 0.7;
+    transition: opacity 200ms ease;
+}
+
+.highlight {
+    color: #fee97d;
+}
+
+@media (hover: hover) {
+    .card:hover .text {
+        opacity: 1;
+    }
+}

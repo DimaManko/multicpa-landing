@@ -11,57 +11,70 @@ import { SnapScroll } from '@/features/snap-scroll'
 
 import type { loader } from './model/loader'
 import { useIsPending } from './model/useIsPending'
+import { Tasks, tasksEnter } from '@/widgets/tasks'
 
 const LandingPage = () => {
-  const { data, lang } = useLoaderData<typeof loader>()
-  const isLoading = useIsPending(data)
-  const [isPreloaderDone, setIsPreloaderDone] = useState(false)
-  const snapRef = useRef<SnapScrollHandle>(null)
+	const { data, lang } = useLoaderData<typeof loader>()
+	const isLoading = useIsPending(data)
+	const [isPreloaderDone, setIsPreloaderDone] = useState(false)
+	const snapRef = useRef<SnapScrollHandle>(null)
+	const [activeSection, setActiveSection] = useState(0)
 
-  return (
-    <Background>
-      <Preloader isLoading={isLoading} onFinish={() => setIsPreloaderDone(true)} />
-      {isPreloaderDone && (
-        <Suspense fallback={null}>
-          <Await resolve={data} errorElement={<p>Failed to load data</p>}>
-            {([, benefits, multiply]) => {
-              return (
-                <SnapScroll
-                  ref={snapRef}
-                  sections={[
-                    {
-                      id: 'benefits',
-                      enter: benefitsEnter,
-                      leave: benefitsLeave,
-                      content: (
-                        <Benefits
-                          locale={lang}
-                          title={benefits.title}
-                          description={benefits.description}
-                          benefits={benefits.benefits}
-                        />
-                      ),
-                    },
-                    {
-                      id: 'multiply',
-                      enter: multiplyEnter,
-                      leave: multiplyLeave,
-                      content: (
-                        <Multiply
-                          items={multiply}
-                          footer={<Footer onScrollTop={() => snapRef.current?.goTo(0)} />}
-                        />
-                      ),
-                    },
-                  ]}
-                />
-              )
-            }}
-          </Await>
-        </Suspense>
-      )}
-    </Background>
-  )
+	return (
+		<Background isDimmed={activeSection === 0}>
+			<Preloader isLoading={isLoading} onFinish={() => setIsPreloaderDone(true)} />
+			{isPreloaderDone && (
+				<Suspense fallback={null}>
+					<Await resolve={data} errorElement={<p>Failed to load data</p>}>
+						{([tasks, benefits, multiply]) => {
+							return (
+								<SnapScroll
+									ref={snapRef}
+									onActiveChange={setActiveSection}
+									sections={[
+										{
+											id: 'tasks',
+											enter: tasksEnter,
+											content: (
+												<Tasks
+													description={tasks.description}
+													tiles={tasks.tiles}
+												/>
+											),
+										},
+										{
+											id: 'benefits',
+											enter: benefitsEnter,
+											leave: benefitsLeave,
+											content: (
+												<Benefits
+													locale={lang}
+													title={benefits.title}
+													description={benefits.description}
+													benefits={benefits.benefits}
+												/>
+											),
+										},
+										{
+											id: 'multiply',
+											enter: multiplyEnter,
+											leave: multiplyLeave,
+											content: (
+												<Multiply
+													items={multiply}
+													footer={<Footer onScrollTop={() => snapRef.current?.goTo(0)} />}
+												/>
+											),
+										},
+									]}
+								/>
+							)
+						}}
+					</Await>
+				</Suspense>
+			)}
+		</Background>
+	)
 }
 
 export default LandingPage

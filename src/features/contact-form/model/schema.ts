@@ -1,16 +1,14 @@
-//Схема валидации
-
 import { z } from 'zod'
 
-const TELEGRAM_USERNAME = /^@?[A-Za-z][A-Za-z0-9_]{4,31}$/
-const PHONE = /^\+?\d{7,15}$/
+const TELEGRAM_CONTACT =
+  /^(https:\/\/t\.me\/[a-zA-Z0-9_]{5,32}|@[a-zA-Z0-9_]{5,32})$/
 
-const stripPhoneSeparators = (value: string): string => value.replace(/[\s\-().]/g, '')
-
-const isPhone = (value: string): boolean => PHONE.test(stripPhoneSeparators(value))
+const PHONE = /^\+[1-9]\d{6,14}$/
 
 const isTelegramContact = (value: string): boolean =>
-  TELEGRAM_USERNAME.test(value) || isPhone(value)
+  TELEGRAM_CONTACT.test(value)
+
+const isPhone = (value: string): boolean => PHONE.test(value)
 
 export const contactFormSchema = z
   .object({
@@ -37,7 +35,7 @@ export const contactFormSchema = z
       context.addIssue({
         code: 'custom',
         path: ['contact'],
-        message: 'Укажите username (@name) или номер телефона',
+        message: 'Укажите @username или ссылку https://t.me/username',
       })
     }
 
@@ -45,7 +43,8 @@ export const contactFormSchema = z
       context.addIssue({
         code: 'custom',
         path: ['contact'],
-        message: 'Укажите номер телефона в международном формате',
+        message:
+          'Укажите + и 7-15 цифр, без пробелов, скобок и дефисов',
       })
     }
   })

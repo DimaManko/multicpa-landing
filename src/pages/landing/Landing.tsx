@@ -21,10 +21,7 @@ const LandingPage = () => {
 
   return (
     <Background>
-      <Preloader
-        isLoading={isLoading}
-        onFinish={() => setIsPreloaderDone(true)}
-      />
+      <Preloader isLoading={isLoading} onFinish={() => setIsPreloaderDone(true)} />
 
       {isPreloaderDone && (
         <Suspense fallback={null}>
@@ -56,9 +53,7 @@ const LandingPage = () => {
                         footer={
                           <>
                             <ContactModal label="Contact us" />
-                            <Footer
-                              onScrollTop={() => snapRef.current?.goTo(0)}
-                            />
+                            <Footer onScrollTop={() => snapRef.current?.goTo(0)} />
                           </>
                         }
                       />

@@ -14,11 +14,21 @@
     "takeMeBack": "Oops, take me back"
   },
   "form": {
+    "title": "Contact us",
     "requiredHint": "Fields with an asterisk (*) are mandatory",
     "namePlaceholder": "Your Name",
     "contactMethodPlaceholder": "Contact Method",
     "contactPlaceholder": "Your Contact",
-    "submit": "Submit"
+    "submit": "Submit",
+    "sending": "Sending...",
+    "errors": {
+      "methodRequired": "Select a contact method",
+      "contactRequired": "Enter your contact details",
+      "email": "Enter a valid email address",
+      "telegram": "Enter @username or a https://t.me/username link",
+      "whatsapp": "Enter + followed by 7-15 digits, without spaces or separators",
+      "send": "Could not send your application. Please try again."
+    }
   },
   "modal": {
     "successTitle": "We have received your application!",

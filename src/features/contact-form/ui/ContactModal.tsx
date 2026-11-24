@@ -1,6 +1,6 @@
 import { useId, useState } from 'react'
 
-import Modal from '@/shared/ui/Modal'
+import { Modal } from '@/shared/ui/modal'
 
 import ContactForm from './ContactForm'
 

@@ -6,6 +6,7 @@ import { Benefits, benefitsEnter, benefitsLeave } from '@/widgets/benefits'
 import { Footer } from '@/widgets/footer'
 import { Multiply, multiplyEnter, multiplyLeave } from '@/widgets/multiply'
 import { Preloader } from '@/widgets/preloader'
+import { ContactModal } from '@/features/contact-form'
 import type { SnapScrollHandle } from '@/features/snap-scroll'
 import { SnapScroll } from '@/features/snap-scroll'
 
@@ -21,42 +22,46 @@ const LandingPage = () => {
   return (
     <Background>
       <Preloader isLoading={isLoading} onFinish={() => setIsPreloaderDone(true)} />
+
       {isPreloaderDone && (
         <Suspense fallback={null}>
           <Await resolve={data} errorElement={<p>Failed to load data</p>}>
-            {([, benefits, multiply]) => {
-              return (
-                <SnapScroll
-                  ref={snapRef}
-                  sections={[
-                    {
-                      id: 'benefits',
-                      enter: benefitsEnter,
-                      leave: benefitsLeave,
-                      content: (
-                        <Benefits
-                          locale={lang}
-                          title={benefits.title}
-                          description={benefits.description}
-                          benefits={benefits.benefits}
-                        />
-                      ),
-                    },
-                    {
-                      id: 'multiply',
-                      enter: multiplyEnter,
-                      leave: multiplyLeave,
-                      content: (
-                        <Multiply
-                          items={multiply}
-                          footer={<Footer onScrollTop={() => snapRef.current?.goTo(0)} />}
-                        />
-                      ),
-                    },
-                  ]}
-                />
-              )
-            }}
+            {([, benefits, multiply]) => (
+              <SnapScroll
+                ref={snapRef}
+                sections={[
+                  {
+                    id: 'benefits',
+                    enter: benefitsEnter,
+                    leave: benefitsLeave,
+                    content: (
+                      <Benefits
+                        locale={lang}
+                        title={benefits.title}
+                        description={benefits.description}
+                        benefits={benefits.benefits}
+                      />
+                    ),
+                  },
+                  {
+                    id: 'multiply',
+                    enter: multiplyEnter,
+                    leave: multiplyLeave,
+                    content: (
+                      <Multiply
+                        items={multiply}
+                        footer={
+                          <>
+                            <ContactModal label="Contact us" />
+                            <Footer onScrollTop={() => snapRef.current?.goTo(0)} />
+                          </>
+                        }
+                      />
+                    ),
+                  },
+                ]}
+              />
+            )}
           </Await>
         </Suspense>
       )}

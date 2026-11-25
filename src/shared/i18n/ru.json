@@ -14,11 +14,21 @@
     "takeMeBack": "Упс, верни меня назад"
   },
   "form": {
+    "title": "Связаться с нами",
     "requiredHint": "Поля со звёздочкой (*) обязательны",
     "namePlaceholder": "Ваше имя",
     "contactMethodPlaceholder": "Способ связи",
     "contactPlaceholder": "Ваш контакт",
-    "submit": "Отправить"
+    "submit": "Отправить",
+    "sending": "Отправляем...",
+    "errors": {
+      "methodRequired": "Выберите способ связи",
+      "contactRequired": "Укажите контакт",
+      "email": "Укажите корректный email",
+      "telegram": "Укажите @username или ссылку https://t.me/username",
+      "whatsapp": "Укажите + и 7-15 цифр, без пробелов и разделителей",
+      "send": "Не удалось отправить заявку. Попробуйте ещё раз."
+    }
   },
   "modal": {
     "successTitle": "Мы получили вашу заявку!",

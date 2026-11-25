@@ -1,0 +1,218 @@
+.form {
+    width: 100%;
+    color: $color-ink;
+    font-family: $font-family-second;
+    font-size: 13px;
+    line-height: normal;
+}
+
+.hint {
+    margin: 0 0 20px;
+    font-family: $font-family-base;
+    font-weight: $font-weight-light;
+    font-size: 14px;
+    line-height: normal;
+}
+
+.accent {
+    color: $color-purple;
+    font-weight: $font-weight-regular;
+}
+
+.fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.nameField {
+    grid-column: 1 / -1;
+}
+
+.contactField {
+    grid-column: span 2;
+}
+
+.field,
+.contactField {
+    position: relative;
+    min-width: 0;
+}
+
+.placeholder {
+    position: absolute;
+    top: 0;
+    left: 13px;
+    display: flex;
+    align-items: center;
+    height: $field-height;
+    letter-spacing: -0.01em;
+    font-weight: $font-weight-light;
+    pointer-events: none;
+}
+
+input.control:not(:placeholder-shown) + .placeholder,
+select.control:not(:invalid) + .placeholder {
+    display: none;
+}
+
+.label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+.control {
+    box-sizing: border-box;
+    width: 100%;
+    height: $field-height;
+    padding: 7px 12px;
+    line-height: normal;
+
+    border: 1px solid rgba($color-purple, 0.3);
+    border-radius: 8px;
+
+    background-color: $color-white;
+    color: $color-ink;
+    font: inherit;
+    font-weight: $font-weight-light;
+}
+
+.control::placeholder {
+    color: $color-ink;
+    opacity: 1;
+}
+
+select.control:invalid {
+    color: transparent;
+}
+
+select.control option {
+    color: $color-ink;
+}
+
+select.control {
+    padding-right: 28px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M1 3h10L6 9z' fill='%239e13e0'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+}
+
+.control:focus-visible {
+    outline: 2px solid $color-purple;
+    outline-offset: 2px;
+}
+
+.control[aria-invalid='true'] {
+    border-color: #b42318;
+}
+
+.control:disabled {
+    opacity: 0.6;
+}
+
+.error {
+    margin: 6px 0 0;
+    color: #b42318;
+    font-size: 14px;
+}
+
+.submit {
+    grid-column: 1 / -1;
+    justify-self: center;
+
+    min-height: $button-height-form;
+    margin-top: 18px;
+    padding: 9px 40px 10px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background-color: $color-yellow;
+    color: $color-ink;
+
+    font-family: $font-family-base;
+    font-size: 14px;
+    font-weight: $font-weight-medium;
+    line-height: normal;
+
+    cursor: pointer;
+    transition:
+        background-color 200ms ease,
+        color 200ms ease;
+}
+
+.success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 9px;
+    color: $color-ink;
+    text-align: center;
+}
+
+.successTitle {
+    margin: 0;
+    font-family: $font-family-base;
+    font-size: 20px;
+    font-weight: $font-weight-bold;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.successText {
+    margin: 0;
+    font-family: $font-family-base;
+    font-size: 20px;
+    font-weight: $font-weight-regular;
+    line-height: normal;
+}
+
+.success .submit {
+    margin-top: 39px;
+}
+
+@media (hover: hover) {
+    .submit:not(:disabled):hover {
+        background-color: $color-ink;
+        color: $color-yellow;
+    }
+}
+
+.submit:focus-visible {
+    outline: 2px solid $color-purple;
+    outline-offset: 3px;
+}
+
+.submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: $breakpoint-sm) {
+    .fields {
+        grid-template-columns: 1fr;
+    }
+
+    .contactField {
+        grid-column: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .submit {
+        transition: none;
+    }
+}

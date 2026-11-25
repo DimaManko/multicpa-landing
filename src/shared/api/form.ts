@@ -8,25 +8,18 @@ export interface ContactFormData {
   contact: string
 }
 
-const postForm = async (data: ContactFormData): Promise<boolean> => {
-  const url = `${getEnv('VITE_API_URL')}/form`
-  const apiKey = getEnv('VITE_API_KEY')
+const postForm = async (data: ContactFormData): Promise<void> => {
+  const response = await fetch(`${getEnv('VITE_API_URL')}/form`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': getEnv('VITE_API_KEY'),
+    },
+    body: JSON.stringify(data),
+  })
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-      },
-      body: JSON.stringify(data),
-    })
-
-    return response.ok
-  } catch (error: unknown) {
-    console.error('Form request failed', error)
-
-    return false
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.status}`)
   }
 }
 
@@ -34,7 +27,8 @@ export const useSendForm = () => {
   const [isSuccess, setIsSuccess] = useState(false)
 
   const send = useCallback(async (data: ContactFormData) => {
-    setIsSuccess(await postForm(data))
+    await postForm(data)
+    setIsSuccess(true)
   }, [])
 
   const reset = useCallback(() => setIsSuccess(false), [])
